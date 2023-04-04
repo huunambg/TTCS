@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "660964525503",
+    "project_id": "trangsuchuunam",
+    "storage_bucket": "trangsuchuunam.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660964525503:android:996964c7ae195be3484d0a",
+        "android_client_info": {
+          "package_name": "com.example.trangsuchuunam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660964525503-v7jjvb8pfv7tm1uod0tv8o7p1he928lo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXAR9byTX-JrFvEamGSNxcDdHp1mFifl4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660964525503-v7jjvb8pfv7tm1uod0tv8o7p1he928lo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,62 @@
+{
+    "SanPham": [
+      {
+        "tenSP": "NV01",
+        "img": "assets/images/nhanvang.png",
+        "gia": "5000000",
+        "chitietSP":"Nhẫn vàng NV01 là một sản phẩm vàng 9999 đẳng cấp châu á xứng danh thương hiệu hàng đầu Việt Nam",
+        "loaiSP":"Nhẫn"
+      },
+      {
+        "tenSP": "NV02",
+        "img": "assets/images/nv02.png",
+        "gia": "5000000",
+        "chitietSP":"Nhẫn vàng NV01 là một sản phẩm vàng 9999 đẳng cấp châu á xứng danh thương hiệu hàng đầu Việt Nam",
+        "loaiSP":"Nhẫn"
+      },
+      {
+        "tenSP": "DCV01",
+        "img": "assets/images/dcv.png",
+        "gia": "5000000",
+        "chitietSP":"Dây chuyền vàng DCV01 là một sản phẩm vàng 9999 đẳng cấp châu á xứng danh thương hiệu hàng đầu Việt Nam",
+        "loaiSP":"Dây chuyền"
+      },
+      {
+        "tenSP": "DCV02",
+        "img": "assets/images/dcv.png",
+        "gia": "5000000",
+        "chitietSP":"Dây chuyền vàng DCV01 là một sản phẩm vàng 9999 đẳng cấp châu á xứng danh thương hiệu hàng đầu Việt Nam",
+        "loaiSP":"Dây chuyền"
+      },
+      {
+        "tenSP": "KTV01",
+        "img": "assets/images/ktv01.png",
+        "gia": "5000000",
+        "chitietSP":"Khuyên tai vàng KTV01 là một sản phẩm vàng 9999 đẳng cấp châu á xứng danh thương hiệu hàng đầu Việt Nam",
+        "loaiSP":"Khuyên tai"
+      },
+      {
+        "tenSP": "KTV02",
+        "img": "assets/images/ktv01.png",
+        "gia": "5000000",
+        "chitietSP":"Khuyên tai vàng KTV01 là một sản phẩm vàng 9999 đẳng cấp châu á xứng danh thương hiệu hàng đầu Việt Nam",
+        "loaiSP":"Khuyên tai"
+      },
+      {
+        "tenSP": "DCV03",
+        "img": "assets/images/dcv.png",
+        "gia": "5000000",
+        "chitietSP":"Dây chuyền vầng DCV03 là một sản phẩm vàng 9999 đẳng cấp châu á xứng danh thương hiệu hàng đầu Việt Nam",
+        "loaiSP":"Dây chuyền"
+      },
+      {
+        "tenSP": "LTV01",
+        "img": "assets/images/ltv01.png",
+        "gia": "5000000",
+        "chitietSP":"Dây chuyền vàng DCV04 là một sản phẩm vàng 9999 đẳng cấp châu á xứng danh thương hiệu hàng đầu Việt Nam",
+        "loaiSP":"Dây chuyền"
+      }
+     
+    ]
+  }
+  
