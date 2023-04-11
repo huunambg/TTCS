@@ -14,7 +14,6 @@ import 'package:lottie/lottie.dart';
 import 'package:trangsuchuunam/Models/product.dart';
 import 'package:trangsuchuunam/Screens/listProduct/listproduct.dart';
 import 'package:trangsuchuunam/Screens/detail/detail.dart';
-import 'package:trangsuchuunam/Screens/detail/detailseach.dart';
 import 'package:trangsuchuunam/Screens/home/user/components/custom_banner.dart';
 import 'package:trangsuchuunam/Screens/home/user/components/custom_homeappbar.dart';
 import 'package:trangsuchuunam/Screens/login/login.dart';
@@ -24,7 +23,7 @@ import 'package:trangsuchuunam/Widgets/custom_card.dart';
 import 'package:trangsuchuunam/Widgets/custom_text.dart';
 import 'package:intl/intl.dart';
 
-List<SanPham> _listsp = [];
+List _listsp = [];
 
 class HomeUser extends StatefulWidget {
   const HomeUser({super.key});
@@ -53,6 +52,7 @@ class _HomeUserState extends State<HomeUser> {
 
   @override
   void initState() {
+    _listsp = [];
     // TODO: implement initState
     fetchdatabaselist();
     super.initState();
@@ -73,69 +73,81 @@ class _HomeUserState extends State<HomeUser> {
             height: 10,
           ),
           Container(
-              padding: EdgeInsets.only(left: 5, right: 5),
-              child: Text(
-                "Danh Mục",
-                style: TextStyle(color: Colors.red),
-              )),
-          SizedBox(
-            height: 15,
-          ),
-          Container(
-            alignment: Alignment.center,
             color: Colors.white,
             padding: EdgeInsets.only(left: 12, right: 12, top: 5),
-            height: h * 0.12,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
+            height: h * 0.2,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Customcard_danhmuc(
-                  img: "assets/images/iconnhan.png",
-                  text: "Nhẫn",
-                  onpressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Nhan()));
-                  },
+                Text(
+                  "Danh Mục",
+                  style: TextStyle(color: Colors.red),
                 ),
-                Customcard_danhmuc(
-                  img: "assets/images/icondaychuyen.png",
-                  text: "Dây chuyền",
-                  onpressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => DayChuyen()));
-                  },
-                ),
-                Customcard_danhmuc(
-                  img: "assets/images/iconkhuyentai.png",
-                  text: "Khuyên tai",
-                  onpressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => KhuyenTai()));
-                  },
-                ),
-                Customcard_danhmuc(
-                  img: "assets/images/iconlactay.png",
-                  text: "Lắc tay",
-                  onpressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LacTay()));
-                  },
-                ),
-                Customcard_danhmuc(
-                  img: "assets/images/iconvongchan.png",
-                  text: "Lắc chân",
-                  onpressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LacChan()));
-                  },
-                ),
-                Customcard_danhmuc(
-                  img: "assets/images/iconchamcaitoc.png",
-                  text: "Châm cài tóc",
-                  onpressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ChamCaiToc()));
-                  },
+                Container(
+                  height: h * 0.15,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      Customcard_danhmuc(
+                        img: "assets/images/iconnhan.png",
+                        text: "Nhẫn",
+                        onpressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Nhan()));
+                        },
+                      ),
+                      Customcard_danhmuc(
+                        img: "assets/images/icondaychuyen.png",
+                        text: "Dây chuyền",
+                        onpressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DayChuyen()));
+                        },
+                      ),
+                      Customcard_danhmuc(
+                        img: "assets/images/iconkhuyentai.png",
+                        text: "Khuyên tai",
+                        onpressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => KhuyenTai()));
+                        },
+                      ),
+                      Customcard_danhmuc(
+                        img: "assets/images/iconlactay.png",
+                        text: "Lắc tay",
+                        onpressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LacTay()));
+                        },
+                      ),
+                      Customcard_danhmuc(
+                        img: "assets/images/iconvongchan.png",
+                        text: "Lắc chân",
+                        onpressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LacChan()));
+                        },
+                      ),
+                      Customcard_danhmuc(
+                        img: "assets/images/iconchamcaitoc.png",
+                        text: "Châm cài tóc",
+                        onpressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ChamCaiToc()));
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -191,13 +203,22 @@ class _HomeUserState extends State<HomeUser> {
                               Container(
                                 color: Color.fromARGB(255, 201, 200, 197),
                                 child: Center(
-                                  child: Image.asset(
-                                    "${snapshot.data!.docs[index]['img'].toString()}",
-                                    fit: BoxFit.cover,
-                                    height: h * 0.26,
-                                    width: double.infinity - 2,
-                                  ),
-                                ),
+                                    child: snapshot.data!.docs[index]['img']
+                                                .toString()
+                                                .length <
+                                            50
+                                        ? Image.asset(
+                                            "${snapshot.data!.docs[index]['img'].toString()}",
+                                            fit: BoxFit.cover,
+                                            height: h * 0.26,
+                                            width: double.infinity - 2,
+                                          )
+                                        : Image.network(
+                                            "${snapshot.data!.docs[index]['img'].toString()}",
+                                            fit: BoxFit.cover,
+                                            height: h * 0.26,
+                                            width: double.infinity - 2,
+                                          )),
                               ),
                               Container(
                                 padding: EdgeInsets.all(7),
@@ -253,14 +274,7 @@ class _HomeUserState extends State<HomeUser> {
     } else {
       items = _cart;
       items.forEach((element) {
-        SanPham a = new SanPham(
-            maSP: element['maSP'],
-            tenSP: element['tenSP'],
-            img: element['img'],
-            gia: element['gia'],
-            chitietSP: element['chitietSP'],
-            loaiSP: element['loaiSP']);
-        _listsp.add(a);
+        _listsp.add(element);
       });
     }
   }
@@ -294,9 +308,12 @@ class Timkiem extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    List<SanPham> hh = [];
+    List hh = [];
     for (var item in _listsp) {
-      if (item.tenSP.toString().toLowerCase().contains(query.toLowerCase())) {
+      if (item['tenSP']
+          .toString()
+          .toLowerCase()
+          .contains(query.toLowerCase())) {
         hh.add(item);
       }
       ;
@@ -316,19 +333,26 @@ class Timkiem extends SearchDelegate {
                 height: 65,
                 width: 65,
                 color: Color.fromARGB(255, 224, 216, 216),
-                child: Image.asset(
-                  '${result.img}',
-                  height: 65,
-                  width: 65,
-                  fit: BoxFit.cover,
-                ),
+                child: result['img'].toString().length < 50
+                    ? Image.asset(
+                        '${result['img']}',
+                        height: 65,
+                        width: 65,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.network(
+                        '${result['img']}',
+                        height: 65,
+                        width: 65,
+                        fit: BoxFit.cover,
+                      ),
               ),
-              title: Text("Tên: ${result.tenSP}"),
+              title: Text("Tên: ${result['tenSP']}"),
               subtitle: Row(
                 children: [
                   Text("Giá: "),
                   Text(
-                    "${result.gia}",
+                    "${tienviet(int.parse(result['gia'].toString()))}đ",
                     style: TextStyle(color: Colors.red),
                   ),
                 ],
@@ -337,7 +361,7 @@ class Timkiem extends SearchDelegate {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => DetailSeach(
+                        builder: (context) => Detail(
                               f: hh[index],
                             )));
               },

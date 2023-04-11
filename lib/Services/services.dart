@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:trangsuchuunam/Models/cart.dart';
+import 'package:trangsuchuunam/Models/danhgia.dart';
 import 'package:trangsuchuunam/Models/phanhoi.dart';
 import 'package:trangsuchuunam/Models/product.dart';
 import 'package:trangsuchuunam/Models/user.dart';
@@ -10,6 +11,12 @@ class Services {
     final docUsers = FirebaseFirestore.instance.collection('Users');
     user.id = id;
     await docUsers.doc(id).set(user.toJson());
+  }
+
+  Future addOO(Orders _order) async {
+    final docOrders = FirebaseFirestore.instance.collection('Orders').doc();
+    _order.maOrder = docOrders.id;
+    await docOrders.set(_order.toJson());
   }
 
   Future addSP(SanPham sp) async {
@@ -30,6 +37,12 @@ class Services {
           else
             await docsfavourite.doc(sp.maSP).set(sp.toJson())
         });
+  }
+
+  Future addDanhGia(Danhgia danhgia) async {
+    final docsDanhGia = FirebaseFirestore.instance.collection('DanhGia').doc();
+    danhgia.maDanhgia = docsDanhGia.id;
+    await docsDanhGia.set(danhgia.toJson());
   }
 
   Future addCart(Carts sp, String id) async {

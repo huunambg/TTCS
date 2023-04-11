@@ -3,9 +3,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:trangsuchuunam/Screens/listProduct/listproduct.dart';
 import 'package:trangsuchuunam/Screens/account/acount.dart';
 import 'package:trangsuchuunam/Screens/cart/cart.dart';
-import 'package:trangsuchuunam/Screens/explore/explore.dart';
 import 'package:trangsuchuunam/Screens/home/user/homeuser.dart';
-
 import 'favourite/favourite.dart';
 
 class Root extends StatefulWidget {
@@ -16,7 +14,7 @@ class Root extends StatefulWidget {
 
 class _RootState extends State<Root> {
   // danh sach cac man hinh(tabs)
-  final tabs = [HomeUser(), ListProduct(), Cart(), Favourite(), Account()];
+  final tabs = [HomeUser(), ListProduct(), Cart(), Favourite(), Acount()];
   int _currentindex = 0;
 
   @override
@@ -35,7 +33,9 @@ class _RootState extends State<Root> {
           BottomNavigationBarItem(
               icon: Icon(Ionicons.home_outline), label: "Trang chủ"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.list_alt_sharp), label: "Danh mục"),
+            icon: Icon(Icons.list_alt_sharp),
+            label: "Danh mục",
+          ),
           BottomNavigationBarItem(
               icon: Icon(Ionicons.bag_check_outline), label: "Giỏ hàng"),
           BottomNavigationBarItem(

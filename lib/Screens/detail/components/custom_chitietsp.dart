@@ -11,7 +11,7 @@ class CustomChiTietSP extends StatelessWidget {
       onTap: onpressed,
       child: Container(
         padding: EdgeInsets.only(left: 6, right: 6),
-        height: 30,
+        height: 40,
         color: Colors.white,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

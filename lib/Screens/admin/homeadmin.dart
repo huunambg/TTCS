@@ -5,7 +5,11 @@ import 'package:ndialog/ndialog.dart';
 import 'package:trangsuchuunam/Screens/admin/qldonhang.dart';
 import 'package:trangsuchuunam/Screens/admin/qlnguoidung.dart';
 import 'package:trangsuchuunam/Screens/admin/qlsanpham.dart';
+import 'package:trangsuchuunam/Screens/admin/tkdoanhthu.dart';
+import 'package:trangsuchuunam/Screens/admin/xulyphanhoi.dart';
+import 'package:trangsuchuunam/Screens/home/user/homeuser.dart';
 import 'package:trangsuchuunam/Screens/login/login.dart';
+import 'package:trangsuchuunam/Screens/root.dart';
 
 class HomeAdmin extends StatefulWidget {
   const HomeAdmin({super.key});
@@ -20,12 +24,21 @@ class _HomeAdminState extends State<HomeAdmin> {
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 208, 227, 187),
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Color.fromARGB(255, 66, 171, 219),
           title: Text(
             "Admin",
             style: TextStyle(fontSize: 25),
           ),
           centerTitle: true,
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => Root()),
+                );
+              },
+              icon: Icon(Icons.keyboard_return)),
         ),
         body: GridView(
           padding: EdgeInsets.all(15),
@@ -46,7 +59,10 @@ class _HomeAdminState extends State<HomeAdmin> {
             CustomItemHome(
               image: "assets/images/tkdoanhthu.png",
               text: "Thống kê doanh thu",
-              onpressed: () {},
+              onpressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ThongKeDoanhThu()));
+              },
             ),
             CustomItemHome(
               image: "assets/images/qldonhang.png",
@@ -67,7 +83,10 @@ class _HomeAdminState extends State<HomeAdmin> {
             CustomItemHome(
               image: "assets/images/phanhoi.png",
               text: "Xử lý phản hồi",
-              onpressed: () {},
+              onpressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => XuLyPhanHoi()));
+              },
             ),
             CustomItemHome(
               image: "assets/images/thoat.png",
@@ -82,8 +101,10 @@ class _HomeAdminState extends State<HomeAdmin> {
                         child: Text("Yes"),
                         onPressed: () async {
                           await FirebaseAuth.instance.signOut();
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Login()));
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => Login()),
+                          );
                         }),
                     TextButton(
                         child: Text("No"),

@@ -1,11 +1,13 @@
 class Orders {
   String? maOrder;
+  String? maNguoiDung;
   String? tenOrder;
   String? tenKhachHang;
   int? sdt;
   String? diaChiOrder;
   int? trangThaiOrder;
   int tongTien;
+  String? size;
   String? image;
   String? chiTietOrder;
   int? soLuong;
@@ -18,8 +20,10 @@ class Orders {
       this.tenOrder,
       this.tenKhachHang,
       this.sdt,
+      this.size,
       this.diaChiOrder,
       this.tongTien = 0,
+      this.maNguoiDung,
       this.trangThaiOrder,
       this.image,
       this.soLuong,
@@ -31,9 +35,11 @@ class Orders {
   Map<String, dynamic> toJson() => {
         'maOrder': maOrder,
         'tenOrder': tenOrder,
+        'maNguoiDung': maNguoiDung,
         'tenKhachHang': tenKhachHang,
         'sdt': sdt,
-        'gia':gia,
+        'size':size,
+        'gia': gia,
         'diaChiOrder': diaChiOrder,
         'trangThaiOrder': trangThaiOrder,
         'tongTien': tongTien,

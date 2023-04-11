@@ -7,6 +7,7 @@ class Carts {
   String? chitietSP;
   int? sl;
   int? sum;
+  String? size;
   Carts(
       {this.maSP,
       this.tenSP,
@@ -15,6 +16,7 @@ class Carts {
       this.img,
       this.chitietSP,
       this.sl,
+      this.size,
       this.sum});
 
   Map<String, dynamic> toJson() => {
@@ -25,6 +27,7 @@ class Carts {
         'img': img,
         'chitietSP': chitietSP,
         'sl': sl,
+        'size': size,
         'sum': sum
       };
 }

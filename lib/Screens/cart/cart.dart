@@ -25,21 +25,35 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
-  @override
-  void initState() {
-    super.initState();
-    fetchdatabaselist();
+  final tenmuacontroller = TextEditingController();
+  final diachimuacontroller = TextEditingController();
+  final sdtmuacontroller = TextEditingController();
+  final user = FirebaseAuth.instance.currentUser;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  void getname() {
+    DocumentReference docRef =
+        firestore.collection('Users').doc('${user?.uid}');
+    docRef.get().then((doc) => {
+          if (doc.exists)
+            setState(() {
+              tenmuacontroller.text = doc.get('tenNguoiDung');
+              diachimuacontroller.text = doc.get('diaChi');
+              sdtmuacontroller.text = "0${doc.get('sdt').toString()}";
+            })
+        });
+    ;
   }
 
   List<Carts> _listcart = [];
   DateTime startDate = DateTime.now();
-
   int sum = 0;
   int sl = 0;
-  final hotencontroller = TextEditingController();
-  final diachicontroller = TextEditingController();
-  final sdtcontroller = TextEditingController();
-  final user = FirebaseAuth.instance.currentUser;
+  @override
+  void initState() {
+    super.initState();
+    getname();
+    fetchdatabaselist();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,12 +100,22 @@ class _CartState extends State<Cart> {
                             children: [
                               Container(
                                 color: Color.fromARGB(255, 233, 231, 231),
-                                child: Image.asset(
-                                  "${snapshot.data!.docs[index]['img'].toString()}",
-                                  height: h * 0.179,
-                                  width: h * 0.179,
-                                  fit: BoxFit.cover,
-                                ),
+                                child: snapshot.data!.docs[index]['img']
+                                            .toString()
+                                            .length <
+                                        50
+                                    ? Image.asset(
+                                        "${snapshot.data!.docs[index]['img'].toString()}",
+                                        height: h * 0.179,
+                                        width: h * 0.179,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Image.network(
+                                        "${snapshot.data!.docs[index]['img'].toString()}",
+                                        height: h * 0.179,
+                                        width: h * 0.179,
+                                        fit: BoxFit.cover,
+                                      ),
                               ),
                               Padding(
                                 padding: EdgeInsets.all(11),
@@ -105,6 +129,8 @@ class _CartState extends State<Cart> {
                                     SizedBox(
                                       height: 10,
                                     ),
+                                    Text(
+                                        "Size:${snapshot.data!.docs[index]['size'].toString()}"),
                                     Row(
                                       children: [
                                         Container(
@@ -276,6 +302,12 @@ class _CartState extends State<Cart> {
                                                       fetchdatabaselist();
                                                     });
                                                   });
+                                                  // int temp =
+                                                  //     snapshot.data!.docs[index]['maSP'] ;
+                                                  // FirebaseFirestore.instance
+                                                  //     .collection("SanPham")
+                                                  //     .doc(snapshot.data!.docs[index]['maSP'])
+                                                  //     .update({'sl': temp});
                                                   CherryToast.success(
                                                           title: Text(
                                                               "Đã xóa ${snapshot.data!.docs[index]['tenSP']} khỏi giỏ hàng "))
@@ -342,196 +374,218 @@ class _CartState extends State<Cart> {
               context: context,
               builder: (context) {
                 return Container(
-                  height: h * 0.56,
-                  width: w * 1,
-                  child: Container(
-                      child: Column(children: [
-                    Container(
-                      alignment: Alignment.center,
-                      height: h * 0.06,
-                      width: w * 1,
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                                  width: 1,
-                                  color: Color.fromARGB(66, 218, 203, 203)))),
-                      child: Container(
-                        padding: EdgeInsets.only(left: 10, right: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    height: h * 0.56,
+                    width: w * 1,
+                    child: Column(children: [
+                      Container(
+                        alignment: Alignment.center,
+                        height: h * 0.06,
+                        width: w * 1,
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                                    width: 1,
+                                    color: Color.fromARGB(66, 218, 203, 203)))),
+                        child: Container(
+                          padding: EdgeInsets.only(left: 10, right: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Thanh Toán",
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              Container(
+                                // height: 0.06,
+                                // width: 0.2,
+                                alignment: Alignment.center,
+                                child: IconButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  icon: Icon(Ionicons.close_outline),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Container(
+                        height: h * 0.36,
+                        width: w * 1,
+                        child: ListView(
+                          shrinkWrap: true,
                           children: [
-                            Text(
-                              "Thanh Toán",
-                              style: TextStyle(fontSize: 20),
+                            Container(
+                              padding: EdgeInsets.only(left: 10, right: 10),
+                              child: TextField(
+                                controller: tenmuacontroller,
+                                decoration: InputDecoration(
+                                    labelText: "Họ Tên",
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15))),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 15,
                             ),
                             Container(
-                              // height: 0.06,
-                              // width: 0.2,
-                              alignment: Alignment.center,
-                              child: IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                icon: Icon(Ionicons.close_outline),
+                              padding: EdgeInsets.only(left: 10, right: 10),
+                              child: TextField(
+                                controller: diachimuacontroller,
+                                decoration: InputDecoration(
+                                    labelText: "Địa chỉ",
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15))),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(left: 10, right: 10),
+                              child: TextField(
+                                controller: sdtmuacontroller,
+                                decoration: InputDecoration(
+                                    labelText: "Số điện thoại",
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15))),
                               ),
                             ),
                           ],
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Container(
-                      height: h * 0.4,
-                      width: w * 1,
-                      child: ListView(
-                        shrinkWrap: true,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.only(left: 10, right: 10),
-                            child: TextField(
-                              controller: hotencontroller,
-                              decoration: InputDecoration(
-                                  labelText: "Nhập Họ Tên",
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(15))),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(left: 10, right: 10),
-                            child: TextField(
-                              controller: diachicontroller,
-                              decoration: InputDecoration(
-                                  labelText: "Nhập địa chỉ",
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(15))),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(left: 10, right: 10),
-                            child: TextField(
-                              controller: sdtcontroller,
-                              decoration: InputDecoration(
-                                  labelText: "Nhập số điện thoại",
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(15))),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      height: 50,
-                      width: w * 1,
-                      child: Row(
-                        children: [
-                          Container(
-                            alignment: Alignment.center,
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Số lượng mặt hàng: ",
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                    Text(
-                                      "${sl}",
-                                      style: TextStyle(
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 17),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 3,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Tổng thanh toán: ",
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                    Text(
-                                      "${tienviet(sum)}đ",
-                                      style: TextStyle(
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 17),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                            height: 50,
-                            width: w * 0.6,
-                          ),
-                          InkWell(
-                            onTap: () {
-                              DateTime endDate =
-                                  startDate.add(Duration(days: 3));
-                              Services s = new Services();
-                              Orders _order = Orders();
-                              if (hotencontroller.text != "" ||
-                                  diachicontroller.text != "" ||
-                                  sdtcontroller != "") {
-                                _order.tenKhachHang = hotencontroller.text;
-                                _order.diaChiOrder = diachicontroller.text;
-                                _order.sdt = int.parse(sdtcontroller.text);
-                                _listcart.forEach((item) {
-                                  _order.tenOrder = item.tenSP;
-                                  _order.tongTien =
-                                      item.sl! * int.parse(item.gia.toString());
-                                  _order.ngayDuKien = endDate.toString();
-                                  _order.ngayOrder = startDate.toString();
-                                  _order.soLuong = item.sl;
-                                  _order.gia = item.gia;
-                                  _order.image = item.img;
-                                  _order.chiTietOrder = "Chờ xác nhận";
-                                  _order.trangThaiOrder = 0;
-                                  String? ma = item.maSP;
-                                  s.deleteCart(user!.uid, ma!);
-                                  s.addOrder(_order, user!.uid);
-                                });
-                                hotencontroller.text = "";
-                                diachicontroller.text = "";
-                                sdtcontroller == "";
-                                Navigator.pop(context);
-                                CherryToast.success(
-                                        title: Text("Đã đặt hàng thành công "))
-                                    .show(context);
-                                setState(() {
-                                  sum = 0;
-                                });
-                              }
-                            },
-                            child: Container(
+                      Container(
+                        height: 50,
+                        width: w * 1,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(left: 3, right: 3),
                               alignment: Alignment.center,
-                              child: Text(
-                                "Đặt hàng",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 16),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Số lượng mặt hàng: ",
+                                        style: TextStyle(fontSize: 15),
+                                      ),
+                                      Text(
+                                        "${sl}",
+                                        style: TextStyle(
+                                            color: Colors.red,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Tổng thanh toán: ",
+                                        style: TextStyle(fontSize: 15),
+                                      ),
+                                      Text(
+                                        "${tienviet(sum)}đ",
+                                        style: TextStyle(
+                                            color: Colors.red,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16),
+                                      )
+                                    ],
+                                  ),
+                                ],
                               ),
                               height: 50,
-                              width: w * 0.4,
-                              color: Color.fromARGB(255, 245, 69, 56),
+                              width: w * 0.6,
                             ),
-                          ),
-                        ],
+                            InkWell(
+                              onTap: () {
+                                DateTime endDate =
+                                    startDate.add(Duration(days: 3));
+                                Services s = new Services();
+                                Orders _order = Orders();
+                                if (tenmuacontroller.text == "" ||
+                                    diachimuacontroller.text == "" ||
+                                    sdtmuacontroller == "" ||
+                                    int.tryParse(sdtmuacontroller.text) ==
+                                        null) {
+                                  CherryToast.warning(
+                                          title: Text(
+                                              "Vui lòng kiểm tra thông tin"))
+                                      .show(context);
+                                } else {
+                                  if (sdtmuacontroller.text.length < 9 ||
+                                      sdtmuacontroller.text.length > 14) {
+                                    CherryToast.warning(
+                                            title: Text(
+                                                "Số điện thoại phải lớn hơn 9 số và nhỏ hơn 14 số"))
+                                        .show(context);
+                                  } else {
+                                    _order.tenKhachHang = tenmuacontroller.text;
+                                    _order.diaChiOrder =
+                                        diachimuacontroller.text;
+                                    _order.sdt =
+                                        int.parse(sdtmuacontroller.text);
+                                    _listcart.forEach((item) {
+                                      _order.tenOrder = item.tenSP;
+                                      _order.size = item.size;
+                                      _order.tongTien = item.sl! *
+                                          int.parse(item.gia.toString());
+                                      _order.ngayDuKien = endDate.toString();
+                                      _order.ngayOrder = startDate.toString();
+                                      _order.soLuong = item.sl;
+                                      _order.gia = item.gia;
+                                      _order.maNguoiDung = user?.uid;
+                                      _order.image = item.img;
+                                      _order.chiTietOrder = "Chờ xác nhận";
+                                      _order.trangThaiOrder = 0;
+                                      String? ma = item.maSP;
+                                      s.deleteCart(user!.uid, ma!);
+                                      //   s.addOrder(_order, user!.uid);
+                                      s.addOO(_order);
+                                    });
+
+                                    Navigator.pop(context);
+                                    CherryToast.success(
+                                            title:
+                                                Text("Đã đặt hàng thành công "))
+                                        .show(context);
+                                    setState(() {
+                                      sum = 0;
+                                    });
+                                    _listcart = [];
+                                  }
+                                }
+                              },
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Đặt hàng",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                ),
+                                height: 50,
+                                width: w * 0.4,
+                                color: Color.fromARGB(255, 245, 69, 56),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ])),
-                );
+                    ]));
               },
             );
           } else {
@@ -554,12 +608,15 @@ class _CartState extends State<Cart> {
         items = _cart;
         items.forEach((element) {
           Carts a = new Carts(
-              maSP: element['maSP'],
-              tenSP: element['tenSP'],
-              img: element['img'],
-              gia: element['gia'],
-              chitietSP: element['chitietSP'],
-              sl: element['sl']);
+            maSP: element['maSP'],
+            tenSP: element['tenSP'],
+            img: element['img'],
+            gia: element['gia'],
+            chitietSP: element['chitietSP'],
+            sl: element['sl'],
+            size: element['size'],
+          );
+
           _listcart.add(a);
           setState(() {
             sum += int.parse(element['gia'].toString()) *

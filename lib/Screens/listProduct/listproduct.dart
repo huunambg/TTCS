@@ -18,6 +18,7 @@ class _ListProductState extends State<ListProduct> {
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 209, 212, 212),
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           shape: RoundedRectangleBorder(
               side: BorderSide(color: Color.fromARGB(95, 195, 190, 190))),
           backgroundColor: Colors.red,

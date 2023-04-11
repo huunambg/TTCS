@@ -40,14 +40,14 @@ class _CusstomFloatingActionButtonCartState
                 children: [
                   Text(
                     "Tổng thanh toán: ",
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: 15),
                   ),
                   Text(
                     "${tienviet(widget.sum)}đ",
                     style: TextStyle(
                         color: Colors.red,
                         fontWeight: FontWeight.bold,
-                        fontSize: 17),
+                        fontSize: 16),
                   )
                 ],
               ),

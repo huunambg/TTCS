@@ -1,3 +1,4 @@
+import 'package:cherry_toast/cherry_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -17,10 +18,11 @@ class QLNguoiDung extends StatefulWidget {
 
 class _QLNguoiDungState extends State<QLNguoiDung> {
   final user = FirebaseAuth.instance.currentUser;
-  final tenspcontroller = TextEditingController();
-  final slcontroller = TextEditingController();
-  final giacontroller = TextEditingController();
-  final chitietcontroller = TextEditingController();
+  final tenNguoiDungcontroller = TextEditingController();
+  final emailcontroller = TextEditingController();
+  final sdtcontroller = TextEditingController();
+  final diachicontroller = TextEditingController();
+  final imgcontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -54,138 +56,142 @@ class _QLNguoiDungState extends State<QLNguoiDung> {
                         margin: EdgeInsets.only(bottom: 10),
                         child: ListTile(
                           onTap: () {
-                            // NDialog(
-                            //   dialogStyle: DialogStyle(titleDivider: true),
-                            //   title: Text(
-                            //       "${snapshot.data!.docs[index]['tenSP']}"),
-                            //   content: Text("Mời bạn chọn chức năng"),
-                            //   actions: <Widget>[
-                            //     TextButton(
-                            //         child: Text("Sửa"),
-                            //         onPressed: () {
-                            //           Navigator.pop(context);
-                            //           tenspcontroller.text =
-                            //               snapshot.data!.docs[index]['tenSP'];
-                            //           giacontroller.text = snapshot
-                            //               .data!.docs[index]['gia']
-                            //               .toString();
-                            //           chitietcontroller.text = snapshot
-                            //               .data!.docs[index]['chitietSP'];
-                            //           String img =
-                            //               snapshot.data!.docs[index]['img'];
-                            //           String loaiSP =
-                            //               snapshot.data!.docs[index]['loaiSP'];
-                            //           String maSP =
-                            //               snapshot.data!.docs[index]['maSP'];
-                            //           NDialog(
-                            //               dialogStyle:
-                            //                   DialogStyle(titleDivider: true),
-                            //               title: Text(
-                            //                   "Sửa: ${snapshot.data!.docs[index]['tenSP']}"),
-                            //               actions: <Widget>[
-                            //                 Container(
-                            //                   padding: EdgeInsets.all(2),
-                            //                   margin:
-                            //                       EdgeInsets.only(bottom: 5),
-                            //                   child: TextFormField(
-                            //                     controller: tenspcontroller,
-                            //                     decoration: InputDecoration(
-                            //                         labelText: "Tên SP",
-                            //                         border: OutlineInputBorder(
-                            //                             borderRadius:
-                            //                                 BorderRadius
-                            //                                     .circular(15))),
-                            //                   ),
-                            //                 ),
-                            //                 Container(
-                            //                   padding: EdgeInsets.all(2),
-                            //                   margin:
-                            //                       EdgeInsets.only(bottom: 5),
-                            //                   child: TextFormField(
-                            //                     controller: slcontroller,
-                            //                     decoration: InputDecoration(
-                            //                         labelText: "SL",
-                            //                         border: OutlineInputBorder(
-                            //                             borderRadius:
-                            //                                 BorderRadius
-                            //                                     .circular(15))),
-                            //                   ),
-                            //                 ),
-                            //                 Container(
-                            //                   padding: EdgeInsets.all(2),
-                            //                   margin:
-                            //                       EdgeInsets.only(bottom: 5),
-                            //                   child: TextFormField(
-                            //                     controller: giacontroller,
-                            //                     decoration: InputDecoration(
-                            //                         labelText: "Giá",
-                            //                         border: OutlineInputBorder(
-                            //                             borderRadius:
-                            //                                 BorderRadius
-                            //                                     .circular(15))),
-                            //                   ),
-                            //                 ),
-                            //                 Row(
-                            //                   children: [
-                            //                     TextButton(
-                            //                         child: Text("Sửa"),
-                            //                         onPressed: () async {
-                            //                           print(snapshot.data!
-                            //                               .docs[index]['maSP']);
-                            //                           String img = snapshot
-                            //                               .data!
-                            //                               .docs[index]['img'];
-                            //                           String loaiSP = snapshot
-                            //                                   .data!.docs[index]
-                            //                               ['loaiSP'];
-                            //                           ;
-                            //                           Navigator.pop(context);
-                            //                           FirebaseFirestore.instance
-                            //                               .collection("SanPham")
-                            //                               .doc(snapshot
-                            //                                   .data!
-                            //                                   .docs[index]
-                            //                                       ['maSP']
-                            //                                   .toString())
-                            //                               .update({
-                            //                             'tenSP': tenspcontroller
-                            //                                 .text,
-                            //                             'loaiSP': loaiSP,
-                            //                             'gia': int.parse(
-                            //                                 giacontroller.text
-                            //                                     .toString())
-                            //                           });
-                            //                         }),
-                            //                     TextButton(
-                            //                         child: Text("Quay lại"),
-                            //                         onPressed: () {
-                            //                           Navigator.pop(context);
-                            //                         }),
-                            //                   ],
-                            //                 )
-                            //               ]).show(context);
-                            //         }),
-                            //     TextButton(
-                            //         child: Text("Xóa"),
-                            //         onPressed: () {
-                            //           FirebaseFirestore.instance
-                            //               .collection("SanPham")
-                            //               .doc(snapshot
-                            //                   .data!.docs[index]['maSP']
-                            //                   .toString())
-                            //               .delete();
-
-                            //           Navigator.pop(context);
-                            //         }),
-                            //   ],
-                            // ).show(context);
+                            NDialog(
+                              dialogStyle: DialogStyle(titleDivider: true),
+                              title: Text(
+                                  "${snapshot.data!.docs[index]['tenNguoiDung']}"),
+                              content: Text("Vui lòng chọn chức năng"),
+                              actions: <Widget>[
+                                TextButton(
+                                    child: Text("Sửa"),
+                                    onPressed: () {
+                                      tenNguoiDungcontroller.text = snapshot
+                                          .data!.docs[index]['tenNguoiDung'];
+                                      emailcontroller.text =
+                                          snapshot.data!.docs[index]['email'];
+                                      sdtcontroller.text = snapshot
+                                          .data!.docs[index]['sdt']
+                                          .toString();
+                                      diachicontroller.text =
+                                          snapshot.data!.docs[index]['diaChi'];
+                                      imgcontroller.text =
+                                          snapshot.data!.docs[index]['img'];
+                                      Navigator.pop(context);
+                                      NDialog(
+                                        dialogStyle:
+                                            DialogStyle(titleDivider: true),
+                                        title: Text(
+                                            "${snapshot.data!.docs[index]['tenNguoiDung']}"),
+                                        content: Container(
+                                          height: h * 0.5,
+                                          child: Column(
+                                            children: [
+                                              TextField(
+                                                controller:
+                                                    tenNguoiDungcontroller,
+                                                decoration: InputDecoration(
+                                                    labelText:
+                                                        "Tên người dùng"),
+                                              ),
+                                              TextField(
+                                                controller: emailcontroller,
+                                                decoration: InputDecoration(
+                                                    labelText: "Email"),
+                                              ),
+                                              TextField(
+                                                controller: sdtcontroller,
+                                                decoration: InputDecoration(
+                                                    labelText: "SDT"),
+                                              ),
+                                              TextField(
+                                                controller: diachicontroller,
+                                                decoration: InputDecoration(
+                                                    labelText: "Địa chỉ"),
+                                              ),
+                                              TextField(
+                                                controller: imgcontroller,
+                                                decoration: InputDecoration(
+                                                    labelText: "Ảnh"),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        actions: <Widget>[
+                                          TextButton(
+                                              child: Text("Lưu"),
+                                              onPressed: () async {
+                                                Navigator.pop(context);
+                                                if (tenNguoiDungcontroller.text ==
+                                                        "" ||
+                                                    emailcontroller.text ==
+                                                        "" ||
+                                                    diachicontroller.text ==
+                                                        "" ||
+                                                    imgcontroller.text == "" ||
+                                                    sdtcontroller.text == "" ||
+                                                    int.tryParse(sdtcontroller
+                                                            .text) ==
+                                                        null) {
+                                                  CherryToast.warning(
+                                                          title: Text(
+                                                              "Vui lòng kiểm tra thông tin nhập"))
+                                                      .show(context);
+                                                } else {
+                                                  await FirebaseFirestore
+                                                      .instance
+                                                      .collection("Users")
+                                                      .doc(snapshot.data!
+                                                          .docs[index]['id'])
+                                                      .update({
+                                                    'tenNguoiDung':
+                                                        tenNguoiDungcontroller
+                                                            .text,
+                                                    'diaChi':
+                                                        diachicontroller.text,
+                                                    'email':
+                                                        emailcontroller.text,
+                                                    'img': imgcontroller.text,
+                                                    'sdt': int.parse(
+                                                        sdtcontroller.text)
+                                                  });
+                                                  CherryToast.success(
+                                                          title: Text(
+                                                              "Sửa thông tin người dùng thành công"))
+                                                      .show(context);
+                                                }
+                                              }),
+                                          TextButton(
+                                              child: Text("Quay lại"),
+                                              onPressed: () =>
+                                                  Navigator.pop(context)),
+                                        ],
+                                      ).show(context);
+                                    }),
+                                TextButton(
+                                    child: Text("Xóa"),
+                                    onPressed: () async {
+                                      Navigator.pop(context);
+                                      await FirebaseFirestore.instance
+                                          .collection("Users")
+                                          .doc(snapshot.data!.docs[index]['id'])
+                                          .delete();
+                                      CherryToast.success(
+                                              title: Text(
+                                                  "Đã xóa người dùng thành công"))
+                                          .show(context);
+                                    }),
+                                TextButton(
+                                    child: Text("Quay lại"),
+                                    onPressed: () => Navigator.pop(context)),
+                              ],
+                            ).show(context);
                           },
                           title: Text(
                             "Email: ${snapshot.data!.docs[index]['email']}",
                             style: TextStyle(fontSize: 11),
                           ),
                           subtitle: Text(
-                            "Tên người dùng: ${snapshot.data!.docs[index]['tenNguoiDung']}",
+                            "Tên: ${snapshot.data!.docs[index]['tenNguoiDung']}",
                           ),
                           trailing: Text(
                               "Quyền: ${snapshot.data!.docs[index]['vaitro']}"),

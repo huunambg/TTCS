@@ -1,171 +1,198 @@
+import 'package:cherry_toast/cherry_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:lottie/lottie.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:trangsuchuunam/Models/user.dart';
 import 'package:trangsuchuunam/Screens/login/login.dart';
 import 'package:trangsuchuunam/Services/services.dart';
-import 'package:trangsuchuunam/Widgets/cusstombutton.dart';
-import 'package:trangsuchuunam/Widgets/my_text_field.dart';
-import 'package:trangsuchuunam/Models/bunny.dart';
-import 'package:cherry_toast/cherry_toast.dart';
-import 'package:trangsuchuunam/Models/user.dart';
 
 class Singup extends StatefulWidget {
-  const Singup({
-    super.key,
-  });
+  const Singup({super.key});
 
   @override
   State<Singup> createState() => _SingupState();
 }
 
-class _SingupState extends State<Singup> with TickerProviderStateMixin {
+class _SingupState extends State<Singup> {
+  bool _isObscure = true;
   final user = FirebaseAuth.instance.currentUser;
-  late AnimationController animationController;
-  late MyBunny myBunny;
   String? email;
   final emailcontroller = TextEditingController();
   final matkhaucontroller = TextEditingController();
   final nhaplaimatkhaucontroller = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    animationController = AnimationController(vsync: this);
-    animationController.stop();
-    myBunny = MyBunny(animationController);
-  }
-
-  @override
-  void dispose() {
-    animationController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    final double textFieldWidth = MediaQuery.of(context).size.width - 32;
+    double w = MediaQuery.of(context).size.width;
+    double h = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 193, 222, 230),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 32,
-        ),
-        children: [
-          Container(
-            width: 300,
-            height: 300,
-            decoration: const BoxDecoration(
-              color: Colors.black45,
-              shape: BoxShape.circle,
-            ),
-            child: Lottie.asset(
-              'assets/lottie/bunny.json',
-              controller: animationController,
-              width: 270,
-              height: 270,
-              onLoaded: (_) {
-                setState(() {
-                  animationController.duration = _.duration;
-                });
-              },
-            ),
+      body: Container(
+          height: h * 1,
+          width: w,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                alignment: Alignment.topCenter,
+                image: AssetImage("assets/images/login.jpg"),
+                fit: BoxFit.fitWidth),
           ),
-          const SizedBox(height: 30),
-          MyTextField(
-            textcontroller: emailcontroller,
-            hintText: 'Email',
-            keyboardType: TextInputType.emailAddress,
-            onHasFocus: (_) {
-              myBunny.setTrackingState();
-            },
-            onChanged: (_) {
-              myBunny.setEyesPosition(_getTextSize(_) / textFieldWidth);
-
-              setState(() {
-                email = _;
-              });
-            },
-          ),
-          const SizedBox(height: 10),
-          MyTextField(
-            textcontroller: matkhaucontroller,
-            hintText: 'Mật khẩu',
-            keyboardType: TextInputType.visiblePassword,
-            obscureText: true,
-            onHasFocus: (_) {
-              if (_) {
-                myBunny.setShyState();
-              } else {
-                myBunny.setPeekState();
-              }
-            },
-            onObscureText: (_) {
-              if (_) {
-                myBunny.setShyState();
-              } else {
-                myBunny.setPeekState();
-              }
-            },
-          ),
-          const SizedBox(height: 10),
-          MyTextField(
-            textcontroller: nhaplaimatkhaucontroller,
-            hintText: 'Nhập lại mật khẩu',
-            keyboardType: TextInputType.visiblePassword,
-            obscureText: true,
-            onHasFocus: (_) {
-              if (_) {
-                myBunny.setShyState();
-              } else {
-                myBunny.setPeekState();
-              }
-            },
-            onObscureText: (_) {
-              if (_) {
-                myBunny.setShyState();
-              } else {
-                myBunny.setPeekState();
-              }
-            },
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          CustomButtonLogin_Signup(
-            onpressed: () {
-              myBunny.setTrackingState();
-              addUser();
-            },
-            text: "Đăng kí",
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text('Bạn đã có tài khoản quay lại?'),
-              TextButton(
-                child: Text("Đăng nhập"),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Login()));
-                },
+              SizedBox(
+                height: h * 0.15,
+              ),
+              Text(
+                "Hữu Nam Jewelry",
+                style: TextStyle(fontSize: 25, color: Colors.white),
+              ),
+              SizedBox(
+                height: h * 0.05,
+              ),
+              Image.asset(
+                "assets/images/nhanlogin.png",
+                width: h * 0.2,
+                height: h * 0.2,
+              ),
+              Container(
+                margin: EdgeInsets.only(top: h * 0.005),
+                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Đang kí",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    SizedBox(
+                      height: h * 0.02,
+                    ),
+                    Container(
+                      height: h * 0.07,
+                      child: TextField(
+                        controller: emailcontroller,
+                        decoration: InputDecoration(
+                            hintText: "Email",
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: BorderSide(
+                                    color:
+                                        Color.fromARGB(255, 168, 162, 162)))),
+                      ),
+                    ),
+                    SizedBox(
+                      height: h * 0.015,
+                    ),
+                    Container(
+                      height: h * 0.07,
+                      child: TextField(
+                        controller: matkhaucontroller,
+                        obscureText: _isObscure,
+                        keyboardType: TextInputType.visiblePassword,
+                        decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _isObscure
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                                color: Colors.black87,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _isObscure = !_isObscure;
+                                });
+                              },
+                            ),
+                            hintText: "Mật khẩu",
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: BorderSide(
+                                    color:
+                                        Color.fromARGB(255, 168, 162, 162)))),
+                      ),
+                    ),
+                    SizedBox(
+                      height: h * 0.015,
+                    ),
+                    Container(
+                      height: h * 0.07,
+                      child: TextField(
+                        controller: nhaplaimatkhaucontroller,
+                        obscureText: _isObscure,
+                        keyboardType: TextInputType.visiblePassword,
+                        decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _isObscure
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                                color: Colors.black87,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _isObscure = !_isObscure;
+                                });
+                              },
+                            ),
+                            hintText: "Nhập lại mật khẩu",
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: BorderSide(
+                                    color:
+                                        Color.fromARGB(255, 168, 162, 162)))),
+                      ),
+                    ),
+                    SizedBox(
+                      height: h * 0.03,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        MaterialButton(
+                          color: Color(0xFFe5733f),
+                          shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                  color: Color.fromARGB(255, 199, 193, 193)),
+                              borderRadius: BorderRadius.circular(50)),
+                          height: 53,
+                          minWidth: 160,
+                          onPressed: () {
+                            addUser();
+                          },
+                          child: Text(
+                            "Đang kí",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: h * 0.065,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Quay trở lại đăng nhập"),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => Login()),
+                            );
+                          },
+                          child: Text(
+                            "Đăng nhập",
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               )
             ],
-          )
-        ],
-      ),
+          )),
     );
-  }
-
-  double _getTextSize(String text) {
-    final TextPainter textPainter = TextPainter(
-      text: TextSpan(text: text, style: const TextStyle(fontSize: 16.0)),
-      maxLines: 1,
-      textDirection: TextDirection.ltr,
-    )..layout();
-    return textPainter.size.width;
   }
 
   void addUser() async {

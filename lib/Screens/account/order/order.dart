@@ -36,9 +36,8 @@ class _OrderScreenState extends State<OrderScreen> {
       ),
       body: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
-              .collection('Users')
-              .doc(user?.uid)
               .collection("Orders")
+              .where('maNguoiDung', isEqualTo: "${user!.uid}")
               .snapshots(),
           builder: (context, AsyncSnapshot snapshot) {
             if (snapshot.hasError) {
@@ -72,12 +71,22 @@ class _OrderScreenState extends State<OrderScreen> {
                             children: [
                               Container(
                                 color: Color.fromARGB(255, 233, 231, 231),
-                                child: Image.asset(
-                                  "${snapshot.data!.docs[index]['image'].toString()}",
-                                  height: h * 0.179,
-                                  width: h * 0.179,
-                                  fit: BoxFit.cover,
-                                ),
+                                child: snapshot.data!.docs[index]['image']
+                                            .toString()
+                                            .length <
+                                        50
+                                    ? Image.asset(
+                                        "${snapshot.data!.docs[index]['image'].toString()}",
+                                        height: h * 0.179,
+                                        width: h * 0.179,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Image.network(
+                                        "${snapshot.data!.docs[index]['image'].toString()}",
+                                        height: h * 0.179,
+                                        width: h * 0.179,
+                                        fit: BoxFit.cover,
+                                      ),
                               ),
                               Padding(
                                 padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
@@ -88,6 +97,8 @@ class _OrderScreenState extends State<OrderScreen> {
                                   children: [
                                     Text(
                                         "${snapshot.data!.docs[index]['tenOrder'].toString()}"),
+                                    Text(
+                                        "Size:${snapshot.data!.docs[index]['size'].toString()}"),
                                     Row(
                                       children: [
                                         Text("Trạng thái: "),

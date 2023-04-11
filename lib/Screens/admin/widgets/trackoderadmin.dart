@@ -1,6 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -13,14 +11,14 @@ import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:intl/intl.dart';
 import 'package:trangsuchuunam/Services/services.dart';
 
-class TrackOrder extends StatefulWidget {
-  const TrackOrder({super.key, this.f});
+class TrackOrderAdmin extends StatefulWidget {
+  const TrackOrderAdmin({super.key, this.f});
   final f;
   @override
-  State<TrackOrder> createState() => _TrackOrderState();
+  State<TrackOrderAdmin> createState() => _TrackOrderAdminState();
 }
 
-class _TrackOrderState extends State<TrackOrder> {
+class _TrackOrderAdminState extends State<TrackOrderAdmin> {
   final user = FirebaseAuth.instance.currentUser;
   int activeStep = 0;
   @override
@@ -35,7 +33,7 @@ class _TrackOrderState extends State<TrackOrder> {
         title: Text("Thông tin đơn hàng"),
         centerTitle: true,
       ),
-      body: ListView(
+      body: Column(
         children: [
           EasyStepper(
             activeStep: widget.f["trangThaiOrder"],
@@ -83,14 +81,6 @@ class _TrackOrderState extends State<TrackOrder> {
               height: h * 0.18,
               width: double.infinity,
               child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => TrackOrder(
-                                f: widget.f,
-                              )));
-                },
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -114,14 +104,10 @@ class _TrackOrderState extends State<TrackOrder> {
                       padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                               "Tên sản phẩm: ${widget.f['tenOrder'].toString()}"),
-                          SizedBox(
-                            height: h * 0.01,
-                          ),
-                          Text("Size: ${widget.f['size'].toString()}"),
                           SizedBox(
                             height: h * 0.01,
                           ),
@@ -246,69 +232,6 @@ class _TrackOrderState extends State<TrackOrder> {
           ),
           // SizedBox(
           //   height: h * 0.05,
-          // ),
-          Container(
-            padding: EdgeInsets.only(left: 20, right: 20),
-            height: h * 0.06,
-            width: w * 0.7,
-            child: widget.f["trangThaiOrder"] != 4 &&
-                    widget.f["trangThaiOrder"] != 3
-                ? MaterialButton(
-                    height: h * 0.06,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    color: Colors.red,
-                    onPressed: () {
-                      Dialogs.materialDialog(
-                        color: Colors.white,
-                        msg: 'Bạn có muốn hủy đơn hàng!',
-                        title: '${widget.f['tenOrder'].toString()}',
-                        lottieBuilder: Lottie.asset(
-                          'assets/lottie/delete.json',
-                          fit: BoxFit.contain,
-                        ),
-                        dialogWidth: kIsWeb ? 0.3 : null,
-                        context: context,
-                        actions: [
-                          IconsButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            text: 'Quay lại',
-                            iconData: Icons.keyboard_return,
-                            color: Color.fromARGB(255, 67, 154, 225),
-                            textStyle: TextStyle(
-                                color: Color.fromARGB(255, 255, 255, 255)),
-                            iconColor: Colors.white,
-                          ),
-                          IconsButton(
-                            onPressed: () async {
-                              Navigator.of(context).pop();
-                              await FirebaseFirestore.instance
-                                  .collection("Orders")
-                                  .doc(widget.f['maOrder'])
-                                  .update({
-                                'trangThaiOrder': 4,
-                                'chiTietOrder': "đã hủy"
-                              });
-                              setState(() {});
-                            },
-                            text: 'Hủy',
-                            iconData: Icons.delete,
-                            color: Color.fromARGB(255, 243, 33, 33),
-                            textStyle: TextStyle(color: Colors.white),
-                            iconColor: Colors.white,
-                          ),
-                        ],
-                      );
-                    },
-                    child: Text(
-                      "Hủy Đơn Hàng",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  )
-                : null,
-          )
         ],
       ),
     );

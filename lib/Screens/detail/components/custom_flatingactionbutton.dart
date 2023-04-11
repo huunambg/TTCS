@@ -5,11 +5,13 @@ import 'package:ionicons/ionicons.dart';
 
 // floattingacction button
 class CusstomFloatingActionButton extends StatefulWidget {
-  const CusstomFloatingActionButton(
-      {super.key,
-      required this.onpresedgiohang,
-    });
+  const CusstomFloatingActionButton({
+    super.key,
+    required this.onpresedgiohang,
+    required this.onpresedmuangay,
+  });
   final GestureTapCallback onpresedgiohang;
+  final GestureTapCallback onpresedmuangay;
 
   @override
   State<CusstomFloatingActionButton> createState() =>
@@ -33,7 +35,20 @@ class _CusstomFloatingActionButtonState
             ),
             color: Color.fromARGB(255, 78, 181, 131),
             height: 50,
-            width: w * 1,
+            width: w * 0.5,
+          ),
+        ),
+        InkWell(
+          onTap: widget.onpresedmuangay,
+          child: Container(
+            alignment: Alignment.center,
+            child: Text(
+              "Mua ngay",
+              style: TextStyle(color: Colors.white),
+            ),
+            color: Colors.red,
+            height: 50,
+            width: w * 0.5,
           ),
         ),
       ],

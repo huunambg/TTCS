@@ -1,13 +1,17 @@
+import 'package:cherry_toast/cherry_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:ndialog/ndialog.dart';
+import 'package:trangsuchuunam/Screens/admin/widgets/custom_widgets.dart';
 import 'package:trangsuchuunam/Screens/detail/detail.dart';
 import 'package:trangsuchuunam/Screens/login/login.dart';
 import 'package:trangsuchuunam/Widgets/cusstombutton.dart';
 import 'package:intl/intl.dart';
+
+import 'widgets/trackoderadmin.dart';
 
 class QLDonHang extends StatefulWidget {
   const QLDonHang({super.key});
@@ -18,10 +22,9 @@ class QLDonHang extends StatefulWidget {
 
 class _QLDonHangState extends State<QLDonHang> {
   final user = FirebaseAuth.instance.currentUser;
-  final tenspcontroller = TextEditingController();
-  final slcontroller = TextEditingController();
-  final giacontroller = TextEditingController();
-  final chitietcontroller = TextEditingController();
+  final trangThaiOrdercontroller = TextEditingController();
+  final chiTietOrdercontroller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -30,182 +33,223 @@ class _QLDonHangState extends State<QLDonHang> {
       appBar: AppBar(
         title: Text("Quản lý đơn hàng"),
         centerTitle: true,
+        backgroundColor: Colors.blueAccent,
       ),
-      body: ListView(
-        children: [
-          SizedBox(
-            height: 5,
-          ),
-          StreamBuilder(
-            stream: FirebaseFirestore.instance
-                .collection("Users")
-                .doc("dl9Ls3xiXZhrArP3FWaWZcTdrD42")
-                .collection("Orders")
-                .snapshots(),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return Center(
-                  child: Text("Loi hihi"),
-                );
-              } else if (snapshot.hasData) {
-                return ListView.builder(
-                    padding: EdgeInsets.all(3.5),
-                    shrinkWrap: true,
-                    physics: ScrollPhysics(),
-                    itemCount: snapshot.data!.docs.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        height: 70,
-                        margin: EdgeInsets.only(bottom: 10),
-                        child: ListTile(
-                          onTap: () {
-                            // NDialog(
-                            //   dialogStyle: DialogStyle(titleDivider: true),
-                            //   title: Text(
-                            //       "${snapshot.data!.docs[index]['tenSP']}"),
-                            //   content: Text("Mời bạn chọn chức năng"),
-                            //   actions: <Widget>[
-                            //     TextButton(
-                            //         child: Text("Sửa"),
-                            //         onPressed: () {
-                            //           Navigator.pop(context);
-                            //           tenspcontroller.text =
-                            //               snapshot.data!.docs[index]['tenSP'];
-                            //           giacontroller.text = snapshot
-                            //               .data!.docs[index]['gia']
-                            //               .toString();
-                            //           chitietcontroller.text = snapshot
-                            //               .data!.docs[index]['chitietSP'];
-                            //           String img =
-                            //               snapshot.data!.docs[index]['img'];
-                            //           String loaiSP =
-                            //               snapshot.data!.docs[index]['loaiSP'];
-                            //           String maSP =
-                            //               snapshot.data!.docs[index]['maSP'];
-                            //           NDialog(
-                            //               dialogStyle:
-                            //                   DialogStyle(titleDivider: true),
-                            //               title: Text(
-                            //                   "Sửa: ${snapshot.data!.docs[index]['tenSP']}"),
-                            //               actions: <Widget>[
-                            //                 Container(
-                            //                   padding: EdgeInsets.all(2),
-                            //                   margin:
-                            //                       EdgeInsets.only(bottom: 5),
-                            //                   child: TextFormField(
-                            //                     controller: tenspcontroller,
-                            //                     decoration: InputDecoration(
-                            //                         labelText: "Tên SP",
-                            //                         border: OutlineInputBorder(
-                            //                             borderRadius:
-                            //                                 BorderRadius
-                            //                                     .circular(15))),
-                            //                   ),
-                            //                 ),
-                            //                 Container(
-                            //                   padding: EdgeInsets.all(2),
-                            //                   margin:
-                            //                       EdgeInsets.only(bottom: 5),
-                            //                   child: TextFormField(
-                            //                     controller: slcontroller,
-                            //                     decoration: InputDecoration(
-                            //                         labelText: "SL",
-                            //                         border: OutlineInputBorder(
-                            //                             borderRadius:
-                            //                                 BorderRadius
-                            //                                     .circular(15))),
-                            //                   ),
-                            //                 ),
-                            //                 Container(
-                            //                   padding: EdgeInsets.all(2),
-                            //                   margin:
-                            //                       EdgeInsets.only(bottom: 5),
-                            //                   child: TextFormField(
-                            //                     controller: giacontroller,
-                            //                     decoration: InputDecoration(
-                            //                         labelText: "Giá",
-                            //                         border: OutlineInputBorder(
-                            //                             borderRadius:
-                            //                                 BorderRadius
-                            //                                     .circular(15))),
-                            //                   ),
-                            //                 ),
-                            //                 Row(
-                            //                   children: [
-                            //                     TextButton(
-                            //                         child: Text("Sửa"),
-                            //                         onPressed: () async {
-                            //                           print(snapshot.data!
-                            //                               .docs[index]['maSP']);
-                            //                           String img = snapshot
-                            //                               .data!
-                            //                               .docs[index]['img'];
-                            //                           String loaiSP = snapshot
-                            //                                   .data!.docs[index]
-                            //                               ['loaiSP'];
-                            //                           ;
-                            //                           Navigator.pop(context);
-                            //                           FirebaseFirestore.instance
-                            //                               .collection("SanPham")
-                            //                               .doc(snapshot
-                            //                                   .data!
-                            //                                   .docs[index]
-                            //                                       ['maSP']
-                            //                                   .toString())
-                            //                               .update({
-                            //                             'tenSP': tenspcontroller
-                            //                                 .text,
-                            //                             'loaiSP': loaiSP,
-                            //                             'gia': int.parse(
-                            //                                 giacontroller.text
-                            //                                     .toString())
-                            //                           });
-                            //                         }),
-                            //                     TextButton(
-                            //                         child: Text("Quay lại"),
-                            //                         onPressed: () {
-                            //                           Navigator.pop(context);
-                            //                         }),
-                            //                   ],
-                            //                 )
-                            //               ]).show(context);
-                            //         }),
-                            //     TextButton(
-                            //         child: Text("Xóa"),
-                            //         onPressed: () {
-                            //           FirebaseFirestore.instance
-                            //               .collection("SanPham")
-                            //               .doc(snapshot
-                            //                   .data!.docs[index]['maSP']
-                            //                   .toString())
-                            //               .delete();
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection("Orders").snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(
+              child: Text("Loi hihi"),
+            );
+          } else if (snapshot.hasData) {
+            return ListView.builder(
+              padding: EdgeInsets.all(10),
+              shrinkWrap: true,
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  height: 70,
+                  margin: EdgeInsets.only(bottom: 10),
+                  child: ListTile(
+                    onLongPress: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TrackOrderAdmin(
+                                    f: snapshot.data!.docs[index],
+                                  )));
+                    },
+                    onTap: () {
+                      NDialog(
+                        dialogStyle: DialogStyle(titleDivider: true),
+                        title: Text(
+                            "Đơn: ${snapshot.data!.docs[index]['tenOrder']}"),
+                        content: Text("Mời bạn chọn chức năng"),
+                        actions: <Widget>[
+                          TextButton(
+                              child: Text(
+                                "Hoàn thành",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                              onPressed: () async {
+                                Navigator.pop(context);
 
-                            //           Navigator.pop(context);
-                            //         }),
-                            //   ],
-                            // ).show(context);
-                          },
-                          title: Text(
-                            "Tên khách hàng: ${snapshot.data!.docs[index]['tenKhachHang']}",
-                            style: TextStyle(fontSize: 11),
-                          ),
-                          subtitle: Text(
-                            "Tên người dùng: ${snapshot.data!.docs[index]['tenOrder']}",
-                          ),
-                          trailing: Text(
-                              "Tổng tiền: ${tienviet(snapshot.data!.docs[index]['tongTien'])}đ"),
-                        ),
-                        decoration: BoxDecoration(
-                            color: Color.fromARGB(191, 69, 157, 216),
-                            borderRadius: BorderRadius.circular(15)),
-                      );
-                    });
-              } else {
-                return Center(child: CircularProgressIndicator());
-              }
-            },
-          ),
-        ],
+                                final x = await FirebaseFirestore.instance
+                                    .collection("Orders");
+                                await x
+                                    .doc(snapshot.data!.docs[index]['maOrder'])
+                                    .update({
+                                  'trangThaiOrder': 3,
+                                  'chiTietOrder': "Đã giao"
+                                });
+                                CherryToast.success(
+                                        title: Text("Đã hoàn thành đơn hàng"))
+                                    .show(context);
+                              }),
+                          TextButton(
+                              child: Text(
+                                "Sửa TT",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                              onPressed: () {
+                                trangThaiOrdercontroller.text = snapshot
+                                    .data!.docs[index]['trangThaiOrder']
+                                    .toString();
+                                Navigator.pop(context);
+                                NDialog(
+                                  dialogStyle: DialogStyle(titleDivider: true),
+                                  title: Text(
+                                      "Tên dơn: ${snapshot.data!.docs[index]['tenOrder']}"),
+                                  content: TextField(
+                                    keyboardType: TextInputType.number,
+                                    controller: trangThaiOrdercontroller,
+                                    decoration: InputDecoration(
+                                        labelText: "Trạng thái order"),
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                        child: Text(
+                                          "Lưu",
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                        onPressed: () async {
+                                          if (trangThaiOrdercontroller.text ==
+                                                  "" ||
+                                              int.tryParse(
+                                                      trangThaiOrdercontroller
+                                                          .text) ==
+                                                  null) {
+                                            CherryToast.error(
+                                                    title: Text(
+                                                        "Vui lòng kiểm tra dữ liệu trạng thái đơn phải là kiểu số"))
+                                                .show(context);
+                                          } else {
+                                            if (int.parse(
+                                                        trangThaiOrdercontroller
+                                                            .text) <=
+                                                    4 &&
+                                                int.parse(
+                                                        trangThaiOrdercontroller
+                                                            .text) >=
+                                                    0) {
+                                              int tt = int.parse(
+                                                  trangThaiOrdercontroller
+                                                      .text);
+                                              final x = await FirebaseFirestore
+                                                  .instance
+                                                  .collection("Orders")
+                                                  .doc(snapshot.data!
+                                                      .docs[index]['maOrder']);
+                                              if (tt == 0) {
+                                                await x.update({
+                                                  'trangThaiOrder': int.parse(
+                                                      trangThaiOrdercontroller
+                                                          .text),
+                                                  'chiTietOrder': "Chờ xác nhận"
+                                                });
+                                                Navigator.pop(context);
+                                                CherryToast.success(
+                                                        title: Text(
+                                                            "Đã cập nhật thông tin đơn hàng"))
+                                                    .show(context);
+                                              } else if (tt == 1) {
+                                                await x.update({
+                                                  'trangThaiOrder': int.parse(
+                                                      trangThaiOrdercontroller
+                                                          .text),
+                                                  'chiTietOrder': "Chờ lấy hàng"
+                                                });
+                                                Navigator.pop(context);
+                                                CherryToast.success(
+                                                        title: Text(
+                                                            "Đã cập nhật thông tin đơn hàng"))
+                                                    .show(context);
+                                              } else if (tt == 2) {
+                                                await x.update({
+                                                  'trangThaiOrder': int.parse(
+                                                      trangThaiOrdercontroller
+                                                          .text),
+                                                  'chiTietOrder': "Đang giao"
+                                                });
+                                                Navigator.pop(context);
+                                                CherryToast.success(
+                                                        title: Text(
+                                                            "Đã cập nhật thông tin đơn hàng"))
+                                                    .show(context);
+                                              } else if (tt == 3) {
+                                                await x.update({
+                                                  'trangThaiOrder': int.parse(
+                                                      trangThaiOrdercontroller
+                                                          .text),
+                                                  'chiTietOrder': "Đã giao"
+                                                });
+                                                Navigator.pop(context);
+                                                CherryToast.success(
+                                                        title: Text(
+                                                            "Đã cập nhật thông tin đơn hàng"))
+                                                    .show(context);
+                                              } else if (tt == 4) {
+                                                await x.update({
+                                                  'trangThaiOrder': int.parse(
+                                                      trangThaiOrdercontroller
+                                                          .text),
+                                                  'chiTietOrder': "Đã hủy"
+                                                });
+                                                Navigator.pop(context);
+                                                CherryToast.success(
+                                                        title: Text(
+                                                            "Đã cập nhật thông tin đơn hàng"))
+                                                    .show(context);
+                                              }
+                                            } else {
+                                              Navigator.pop(context);
+                                              CherryToast.error(
+                                                      title: Text(
+                                                          "Vui lòng kiểm tra dữ liệu trạng thái đơn chỉ từ 0 đến đến 4"))
+                                                  .show(context);
+                                            }
+                                          }
+                                        }),
+                                    TextButton(
+                                        child: Text(
+                                          "Quay lại",
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                        onPressed: () =>
+                                            Navigator.pop(context)),
+                                  ],
+                                ).show(context);
+                              }),
+                          TextButton(
+                              child: Text(
+                                "Quay lại",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                              onPressed: () => Navigator.pop(context)),
+                        ],
+                      ).show(context);
+                    },
+                    title: Text(
+                      "Tên đơn hàng: ${snapshot.data!.docs[index]['tenOrder']}",
+                      style: TextStyle(fontSize: 11),
+                    ),
+                    subtitle: Text(
+                      "KH: ${snapshot.data!.docs[index]['tenKhachHang']}",
+                    ),
+                    trailing: Text(
+                        "TT: ${snapshot.data!.docs[index]['chiTietOrder']}"),
+                  ),
+                  decoration: BoxDecoration(
+                      color: Color.fromARGB(191, 69, 157, 216),
+                      borderRadius: BorderRadius.circular(15)),
+                );
+              },
+            );
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        },
       ),
     );
   }

@@ -47,7 +47,7 @@ class _Customcard_danhmucState extends State<Customcard_danhmuc> {
               ),
             ),
             SizedBox(
-              height: 10,
+              height: 8,
             ),
             Center(
               child: Text(

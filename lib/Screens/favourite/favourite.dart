@@ -29,6 +29,7 @@ class _FavouriteState extends State<Favourite> {
     double h = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         shape: RoundedRectangleBorder(
             side: BorderSide(color: Color.fromARGB(95, 195, 190, 190))),
         backgroundColor: Colors.red,

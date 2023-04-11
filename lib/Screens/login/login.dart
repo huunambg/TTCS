@@ -2,149 +2,221 @@ import 'package:cherry_toast/cherry_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:lottie/lottie.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:trangsuchuunam/Screens/admin/homeadmin.dart';
-
-import 'package:trangsuchuunam/Screens/home/user/homeuser.dart';
 import 'package:trangsuchuunam/Screens/root.dart';
 import 'package:trangsuchuunam/Screens/signup/signup.dart';
-import 'package:trangsuchuunam/Widgets/cusstombutton.dart';
-import 'package:trangsuchuunam/Widgets/my_text_field.dart';
-import '../../Models/bunny.dart';
 
 class Login extends StatefulWidget {
-  const Login({
-    super.key,
-  });
+  const Login({super.key});
 
   @override
   State<Login> createState() => _LoginState();
 }
 
-class _LoginState extends State<Login> with TickerProviderStateMixin {
-  final user = FirebaseAuth.instance.currentUser;
-  late AnimationController animationController;
-  late MyBunny myBunny;
-  String? email;
+class _LoginState extends State<Login> {
   final emailcontroller = TextEditingController();
   final matkhaucontroller = TextEditingController();
-  @override
-  void initState() {
-    super.initState();
-    animationController = AnimationController(vsync: this);
-    animationController.stop();
-    myBunny = MyBunny(animationController);
-  }
-
-  @override
-  void dispose() {
-    animationController.dispose();
-    super.dispose();
-  }
-
+  bool _isObscure = true;
   @override
   Widget build(BuildContext context) {
-    final double textFieldWidth = MediaQuery.of(context).size.width - 32;
+    double w = MediaQuery.of(context).size.width;
+    double h = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 193, 222, 230),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 32,
+      body: Container(
+        height: h * 1,
+        width: w,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              alignment: Alignment.topCenter,
+              image: AssetImage("assets/images/login.jpg"),
+              fit: BoxFit.fitWidth),
         ),
-        children: [
-          Container(
-            width: 300,
-            height: 300,
-            decoration: const BoxDecoration(
-              color: Colors.black45,
-              shape: BoxShape.circle,
-            ),
-            child: Lottie.asset(
-              'assets/lottie/bunny.json',
-              controller: animationController,
-              width: 270,
-              height: 270,
-              onLoaded: (_) {
-                setState(() {
-                  animationController.duration = _.duration;
-                });
-              },
-            ),
-          ),
-          const SizedBox(height: 20),
-          MyTextField(
-            textcontroller: emailcontroller,
-            hintText: 'Email',
-            keyboardType: TextInputType.emailAddress,
-            onHasFocus: (_) {
-              myBunny.setTrackingState();
-            },
-            onChanged: (_) {
-              myBunny.setEyesPosition(_getTextSize(_) / textFieldWidth);
-
-              setState(() {
-                email = _;
-              });
-            },
-          ),
-          const SizedBox(height: 10),
-          MyTextField(
-            textcontroller: matkhaucontroller,
-            hintText: 'Mật Khẩu',
-            keyboardType: TextInputType.visiblePassword,
-            obscureText: true,
-            onHasFocus: (_) {
-              if (_) {
-                myBunny.setShyState();
-              } else {
-                myBunny.setPeekState();
-              }
-            },
-            onObscureText: (_) {
-              if (_) {
-                myBunny.setShyState();
-              } else {
-                myBunny.setPeekState();
-              }
-            },
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton(
-                child: Text(
-                  "Quên mật khẩu ?",
-                ),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Singup()));
-                },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              margin: EdgeInsets.only(top: h * 0.15),
+              padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    "Hữu Nam Jewelry",
+                    style: TextStyle(fontSize: 25, color: Colors.white),
+                  ),
+                  SizedBox(
+                    height: h * 0.05,
+                  ),
+                  Image.asset(
+                    "assets/images/nhanlogin.png",
+                    width: h * 0.2,
+                    height: h * 0.2,
+                  ),
+                  SizedBox(
+                    height: h * 0.005,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Đăng nhập",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          SizedBox(
+                            height: h * 0.005,
+                          ),
+                          Text(
+                            "Chào mừng trở lại",
+                            style: TextStyle(
+                                fontSize: 17,
+                                color: Color.fromARGB(255, 153, 149, 149)),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          MaterialButton(
+                            shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    color: Color.fromARGB(255, 199, 193, 193)),
+                                borderRadius: BorderRadius.circular(50)),
+                            height: 53,
+                            minWidth: 53,
+                            onPressed: () {},
+                            child: Image.asset(
+                              "assets/images/facebook.png",
+                              width: 20,
+                              height: 20,
+                            ),
+                          ),
+                          SizedBox(
+                            width: w * 0.03,
+                          ),
+                          MaterialButton(
+                            shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    color: Color.fromARGB(255, 199, 193, 193)),
+                                borderRadius: BorderRadius.circular(50)),
+                            height: 53,
+                            minWidth: 53,
+                            onPressed: () {},
+                            child: Image.asset(
+                              "assets/images/google.png",
+                              width: 20,
+                              height: 20,
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: h * 0.02,
+                  ),
+                  Container(
+                    height: h * 0.07,
+                    child: TextField(
+                      controller: emailcontroller,
+                      decoration: InputDecoration(
+                          hintText: "Email",
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 168, 162, 162)))),
+                    ),
+                  ),
+                  SizedBox(
+                    height: h * 0.015,
+                  ),
+                  Container(
+                    height: h * 0.07,
+                    child: TextField(
+                      controller: matkhaucontroller,
+                      obscureText: _isObscure,
+                      keyboardType: TextInputType.visiblePassword,
+                      decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _isObscure
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                              color: Colors.black87,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _isObscure = !_isObscure;
+                              });
+                            },
+                          ),
+                          hintText: "Mật khẩu",
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 168, 162, 162)))),
+                    ),
+                  ),
+                  SizedBox(
+                    height: h * 0.03,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      MaterialButton(
+                        color: Color(0xFFe5733f),
+                        shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                                color: Color.fromARGB(255, 199, 193, 193)),
+                            borderRadius: BorderRadius.circular(50)),
+                        height: 53,
+                        minWidth: 160,
+                        onPressed: () {
+                          sigin();
+                        },
+                        child: Text(
+                          "Đăng nhập",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          "Quên mật khẩu ?",
+                          style: TextStyle(fontSize: 14),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: h * 0.1,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Bạn chưa có tài khoản"),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => Singup()),
+              );
+                        },
+                        child: Text(
+                          "Đang kí",
+                          style: TextStyle(fontSize: 15),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-            ],
-          ),
-          CustomButtonLogin_Signup(
-            onpressed: () {
-              myBunny.setTrackingState();
-              sigin();
-            },
-            text: "Đăng Nhập",
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('Bạn chưa có tài khoản?'),
-              TextButton(
-                child: Text("Đăng kí"),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Singup()));
-                },
-              )
-            ],
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -160,19 +232,23 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
             password: matkhaucontroller.text.trim());
 
         if (user != null) {
-          final useid = await FirebaseAuth.instance.currentUser;
+          final useid =  FirebaseAuth.instance.currentUser;
           final id = useid?.uid;
-          await FirebaseFirestore.instance
+        FirebaseFirestore.instance
               .collection("Users")
               .doc(id)
               .get()
               .then((value) {
             if (value['vaitro'] == 'admin') {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => HomeAdmin()));
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => HomeAdmin()),
+              );
             } else {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Root()));
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => Root()),
+              );
             }
             ;
           });
@@ -180,7 +256,6 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
           print("erorr");
         }
       } on FirebaseAuthException catch (e) {
-        // CherryToast.error(title: Text(e.toString())).show(context);
         CherryToast.error(
                 title: Text(
                     "Tài khoản hoặc mật khẩu không chính xác hoặc chưa đang kí"))
@@ -188,13 +263,4 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
       }
     }
   }
-}
-
-double _getTextSize(String text) {
-  final TextPainter textPainter = TextPainter(
-    text: TextSpan(text: text, style: const TextStyle(fontSize: 16.0)),
-    maxLines: 1,
-    textDirection: TextDirection.ltr,
-  )..layout();
-  return textPainter.size.width;
 }
