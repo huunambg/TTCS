@@ -9,6 +9,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:lottie/lottie.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
+import 'package:ndialog/ndialog.dart';
 import 'package:trangsuchuunam/Screens/detail/detail.dart';
 import 'package:trangsuchuunam/Screens/home/user/homeuser.dart';
 import 'package:trangsuchuunam/Services/services.dart';
@@ -106,19 +107,15 @@ class _FavouriteState extends State<Favourite> {
                                   children: [
                                     IconButton(
                                         onPressed: () {
-                                          Dialogs.materialDialog(
-                                            color: Colors.white,
-                                            msg:
-                                                'Bạn có muốn loại bỏ khỏi mục yêu thích!',
-                                            title:
-                                                '${snapshot.data!.docs[index]['tenSP'].toString()}',
-                                            lottieBuilder: Lottie.asset(
+                                          NDialog(
+                                            dialogStyle:
+                                                DialogStyle(titleDivider: true),
+                                            title: Lottie.asset(
                                               'assets/lottie/favour_heart.json',
-                                              fit: BoxFit.contain,
                                             ),
-                                            dialogWidth: kIsWeb ? 0.3 : null,
-                                            context: context,
-                                            actions: [
+                                            content: Text(
+                                                "Bạn có muốn loại bỏ ${snapshot.data!.docs[index]['tenSP'].toString()} khỏi mục yêu thích"),
+                                            actions: <Widget>[
                                               IconsButton(
                                                 onPressed: () {
                                                   Navigator.of(context).pop();
@@ -152,7 +149,7 @@ class _FavouriteState extends State<Favourite> {
                                                 iconColor: Colors.white,
                                               ),
                                             ],
-                                          );
+                                          ).show(context);
                                         },
                                         icon: Icon(
                                           Ionicons.heart_outline,

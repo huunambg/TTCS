@@ -43,7 +43,7 @@ class _LoginState extends State<Login> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    "Hữu Nam Jewelry",
+                    "Hữu Nam SCJ",
                     style: TextStyle(fontSize: 25, color: Colors.white),
                   ),
                   SizedBox(
@@ -201,9 +201,9 @@ class _LoginState extends State<Login> {
                       TextButton(
                         onPressed: () {
                           Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => Singup()),
-              );
+                            context,
+                            MaterialPageRoute(builder: (context) => Singup()),
+                          );
                         },
                         child: Text(
                           "Đang kí",
@@ -232,9 +232,9 @@ class _LoginState extends State<Login> {
             password: matkhaucontroller.text.trim());
 
         if (user != null) {
-          final useid =  FirebaseAuth.instance.currentUser;
+          final useid = FirebaseAuth.instance.currentUser;
           final id = useid?.uid;
-        FirebaseFirestore.instance
+          FirebaseFirestore.instance
               .collection("Users")
               .doc(id)
               .get()

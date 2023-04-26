@@ -70,12 +70,12 @@ class _HomeUserState extends State<HomeUser> {
         children: [
           CustomBanner(),
           SizedBox(
-            height: 10,
+            height: 7,
           ),
           Container(
             color: Colors.white,
-            padding: EdgeInsets.only(left: 12, right: 12, top: 5),
-            height: h * 0.2,
+            padding: EdgeInsets.only(left: 12, right: 12, top: 3),
+            height: h * 0.164,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -84,7 +84,7 @@ class _HomeUserState extends State<HomeUser> {
                   style: TextStyle(color: Colors.red),
                 ),
                 Container(
-                  height: h * 0.15,
+                  height: h * 0.134,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: [
@@ -153,7 +153,7 @@ class _HomeUserState extends State<HomeUser> {
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 7,
           ),
           Container(
             padding: EdgeInsets.only(left: 10),
@@ -198,9 +198,10 @@ class _HomeUserState extends State<HomeUser> {
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
+                                alignment: Alignment.center,
                                 color: Color.fromARGB(255, 201, 200, 197),
                                 child: Center(
                                     child: snapshot.data!.docs[index]['img']
@@ -211,13 +212,11 @@ class _HomeUserState extends State<HomeUser> {
                                             "${snapshot.data!.docs[index]['img'].toString()}",
                                             fit: BoxFit.cover,
                                             height: h * 0.26,
-                                            width: double.infinity - 2,
                                           )
                                         : Image.network(
                                             "${snapshot.data!.docs[index]['img'].toString()}",
                                             fit: BoxFit.cover,
                                             height: h * 0.26,
-                                            width: double.infinity - 2,
                                           )),
                               ),
                               Container(

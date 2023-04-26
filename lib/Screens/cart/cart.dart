@@ -8,6 +8,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:lottie/lottie.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
+import 'package:ndialog/ndialog.dart';
 import 'package:trangsuchuunam/Models/cart.dart';
 import 'package:trangsuchuunam/Models/order.dart';
 import 'package:trangsuchuunam/Models/product.dart';
@@ -16,6 +17,7 @@ import 'package:trangsuchuunam/Screens/cart/components/customshowmodalbottombyca
 import 'package:trangsuchuunam/Screens/home/user/homeuser.dart';
 import 'package:trangsuchuunam/Services/services.dart';
 import 'package:material_dialogs/material_dialogs.dart';
+import 'package:intl/intl.dart';
 
 class Cart extends StatefulWidget {
   const Cart({super.key});
@@ -264,35 +266,76 @@ class _CartState extends State<Cart> {
                                   children: [
                                     IconButton(
                                         onPressed: () {
-                                          Dialogs.materialDialog(
-                                            color: Colors.white,
-                                            msg:
-                                                'Bạn có muốn xóa khỏi giỏ hàng!',
-                                            title:
-                                                '${snapshot.data!.docs[index]['tenSP'].toString()}',
-                                            lottieBuilder: Lottie.asset(
+                                          // Dialogs.materialDialog(
+                                          //   color: Colors.white,
+                                          //   msg:
+                                          //       'Bạn có muốn xóa khỏi giỏ hàng!',
+                                          //   title:
+                                          //       '${snapshot.data!.docs[index]['tenSP'].toString()}',
+                                          //   lottieBuilder: Lottie.asset(
+                                          //     'assets/lottie/delete.json',
+                                          //     fit: BoxFit.contain,
+                                          //   ),
+                                          //   dialogWidth: kIsWeb ? 0.3 : null,
+                                          //   context: context,
+                                          //   actions: [
+                                          //     IconsButton(
+                                          //       onPressed: () {
+                                          //         Navigator.pop(context);
+                                          //       },
+                                          //       text: 'Quay lại',
+                                          //       iconData: Icons.keyboard_return,
+                                          //       color: Color.fromARGB(
+                                          //           255, 166, 206, 238),
+                                          //       textStyle: TextStyle(
+                                          //           color: Color.fromARGB(
+                                          //               255, 255, 255, 255)),
+                                          //       iconColor: Colors.white,
+                                          //     ),
+                                          //     IconsButton(
+                                          //       onPressed: () {
+                                          //         final x = Services();
+                                          //         x.deleteCart(user!.uid,
+                                          //             "${snapshot.data!.docs[index]['maSP'].toString()}");
+                                          //         setState(() {
+                                          //           setState(() {
+                                          //             sum = 0;
+                                          //             fetchdatabaselist();
+                                          //           });
+                                          //         });
+                                          //         Navigator.pop(context);
+                                          //         // int temp =
+                                          //         //     snapshot.data!.docs[index]['maSP'] ;
+                                          //         // FirebaseFirestore.instance
+                                          //         //     .collection("SanPham")
+                                          //         //     .doc(snapshot.data!.docs[index]['maSP'])
+                                          //         //     .update({'sl': temp});
+                                          //         CherryToast.success(
+                                          //                 title: Text(
+                                          //                     "Đã xóa ${snapshot.data!.docs[index]['tenSP']} khỏi giỏ hàng "))
+                                          //             .show(context);
+                                          //       },
+                                          //       text: 'Xóa',
+                                          //       iconData: Icons.delete,
+                                          //       color: Color.fromARGB(
+                                          //           255, 243, 33, 33),
+                                          //       textStyle: TextStyle(
+                                          //           color: Colors.white),
+                                          //       iconColor: Colors.white,
+                                          //     ),
+                                          //   ],
+                                          // );
+                                          NDialog(
+                                            dialogStyle:
+                                                DialogStyle(titleDivider: true),
+                                            title: Lottie.asset(
                                               'assets/lottie/delete.json',
-                                              fit: BoxFit.contain,
                                             ),
-                                            dialogWidth: kIsWeb ? 0.3 : null,
-                                            context: context,
-                                            actions: [
+                                            content: Text(
+                                                "Bạn có muốn xóa ${snapshot.data!.docs[index]['tenSP'].toString()} khỏi giỏ hàng"),
+                                            actions: <Widget>[
                                               IconsButton(
                                                 onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                                text: 'Quay lại',
-                                                iconData: Icons.keyboard_return,
-                                                color: Color.fromARGB(
-                                                    255, 166, 206, 238),
-                                                textStyle: TextStyle(
-                                                    color: Color.fromARGB(
-                                                        255, 255, 255, 255)),
-                                                iconColor: Colors.white,
-                                              ),
-                                              IconsButton(
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
                                                   final x = Services();
                                                   x.deleteCart(user!.uid,
                                                       "${snapshot.data!.docs[index]['maSP'].toString()}");
@@ -302,6 +345,7 @@ class _CartState extends State<Cart> {
                                                       fetchdatabaselist();
                                                     });
                                                   });
+                                                  Navigator.pop(context);
                                                   // int temp =
                                                   //     snapshot.data!.docs[index]['maSP'] ;
                                                   // FirebaseFirestore.instance
@@ -321,8 +365,21 @@ class _CartState extends State<Cart> {
                                                     color: Colors.white),
                                                 iconColor: Colors.white,
                                               ),
+                                              IconsButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                text: 'Quay lại',
+                                                iconData: Icons.keyboard_return,
+                                                color: Color.fromARGB(
+                                                    255, 62, 146, 214),
+                                                textStyle: TextStyle(
+                                                    color: Color.fromARGB(
+                                                        255, 255, 255, 255)),
+                                                iconColor: Colors.white,
+                                              ),
                                             ],
-                                          );
+                                          ).show(context);
                                         },
                                         icon: Icon(
                                           Ionicons.close_outline,

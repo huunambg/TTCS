@@ -367,7 +367,7 @@ class _QLSanPhamState extends State<QLSanPham> {
                                                           'sl': int.parse(
                                                               slcontroller
                                                                   .text),
-                                                          'chiTietSP':
+                                                          'chitietSP':
                                                               chitietcontroller
                                                                   .text
                                                         });

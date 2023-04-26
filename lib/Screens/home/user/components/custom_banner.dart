@@ -90,12 +90,14 @@ class _CustomBannerState extends State<CustomBanner> {
   ];
   @override
   Widget build(BuildContext context) {
+    double h = MediaQuery.of(context).size.height;
+    double w = MediaQuery.of(context).size.width;
     return Container(
-      height: 140,
+      height: h * 0.2,
       child: ClipRRect(
         child: CustomCarouselSlider(
           items: itemList,
-          height: 140,
+          height: h * 0.15,
           width: MediaQuery.of(context).size.width * 1,
           autoplay: true,
         ),

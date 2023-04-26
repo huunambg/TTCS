@@ -11,6 +11,7 @@ import 'package:lottie/lottie.dart';
 import 'package:material_dialogs/dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:intl/intl.dart';
+import 'package:ndialog/ndialog.dart';
 import 'package:trangsuchuunam/Services/services.dart';
 
 class TrackOrder extends StatefulWidget {
@@ -234,6 +235,24 @@ class _TrackOrderState extends State<TrackOrder> {
                 ),
                 Row(
                   children: [
+                    Text("Ngày nhận ", style: TextStyle(fontSize: 17)),
+                    widget.f['ngayNhan'] != "chưa nhận"
+                        ? Text(
+                            "${DateFormat('dd-MM-yyyy').format(DateTime.parse(widget.f['ngayNhan']))}",
+                            style: TextStyle(
+                                fontSize: 17,
+                                color: Color.fromARGB(255, 54, 152, 244)),
+                          )
+                        : Text(
+                            "${widget.f['ngayNhan']}",
+                            style: TextStyle(
+                                fontSize: 17,
+                                color: Color.fromARGB(255, 54, 152, 244)),
+                          ),
+                  ],
+                ),
+                Row(
+                  children: [
                     Text("Tổng Tiền:", style: TextStyle(fontSize: 17)),
                     Text(
                       "${tienviet(widget.f['tongTien'])}₫",
@@ -259,17 +278,13 @@ class _TrackOrderState extends State<TrackOrder> {
                         borderRadius: BorderRadius.circular(15)),
                     color: Colors.red,
                     onPressed: () {
-                      Dialogs.materialDialog(
-                        color: Colors.white,
-                        msg: 'Bạn có muốn hủy đơn hàng!',
-                        title: '${widget.f['tenOrder'].toString()}',
-                        lottieBuilder: Lottie.asset(
+                      NDialog(
+                        dialogStyle: DialogStyle(titleDivider: true),
+                        title: Lottie.asset(
                           'assets/lottie/delete.json',
-                          fit: BoxFit.contain,
                         ),
-                        dialogWidth: kIsWeb ? 0.3 : null,
-                        context: context,
-                        actions: [
+                        content: Text("Bạn có muốn hủy đơn hàng"),
+                        actions: <Widget>[
                           IconsButton(
                             onPressed: () {
                               Navigator.of(context).pop();
@@ -300,7 +315,7 @@ class _TrackOrderState extends State<TrackOrder> {
                             iconColor: Colors.white,
                           ),
                         ],
-                      );
+                      ).show(context);
                     },
                     child: Text(
                       "Hủy Đơn Hàng",

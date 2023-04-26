@@ -266,7 +266,7 @@ class _DayChuyenState extends State<DayChuyen> {
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection("SanPham")
-            .where('loaiSP', isEqualTo: "Dây chuyền")
+            .where('loaiSP', isEqualTo: "Dây chuyền")
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
@@ -303,12 +303,22 @@ class _DayChuyenState extends State<DayChuyen> {
                           Container(
                             color: Color.fromARGB(255, 201, 200, 197),
                             child: Center(
-                              child: Image.asset(
-                                "${snapshot.data!.docs[index]['img'].toString()}",
-                                fit: BoxFit.cover,
-                                height: h * 0.26,
-                                width: double.infinity - 2,
-                              ),
+                              child: snapshot.data!.docs[index]['img']
+                                          .toString()
+                                          .length <
+                                      50
+                                  ? Image.asset(
+                                      "${snapshot.data!.docs[index]['img'].toString()}",
+                                      fit: BoxFit.cover,
+                                      height: h * 0.26,
+                                      width: double.infinity - 2,
+                                    )
+                                  : Image.network(
+                                      "${snapshot.data!.docs[index]['img'].toString()}",
+                                      fit: BoxFit.cover,
+                                      height: h * 0.26,
+                                      width: double.infinity - 2,
+                                    ),
                             ),
                           ),
                           Container(
@@ -382,7 +392,7 @@ class _NhanState extends State<Nhan> {
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection("SanPham")
-            .where('loaiSP', isEqualTo: "Nhẫn")
+            .where('loaiSP', isEqualTo: "Nhẫn")
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
@@ -419,12 +429,22 @@ class _NhanState extends State<Nhan> {
                           Container(
                             color: Color.fromARGB(255, 201, 200, 197),
                             child: Center(
-                              child: Image.asset(
-                                "${snapshot.data!.docs[index]['img'].toString()}",
-                                fit: BoxFit.cover,
-                                height: h * 0.26,
-                                width: double.infinity - 2,
-                              ),
+                              child: snapshot.data!.docs[index]['img']
+                                          .toString()
+                                          .length <
+                                      50
+                                  ? Image.asset(
+                                      "${snapshot.data!.docs[index]['img'].toString()}",
+                                      fit: BoxFit.cover,
+                                      height: h * 0.26,
+                                      width: double.infinity - 2,
+                                    )
+                                  : Image.network(
+                                      "${snapshot.data!.docs[index]['img'].toString()}",
+                                      fit: BoxFit.cover,
+                                      height: h * 0.26,
+                                      width: double.infinity - 2,
+                                    ),
                             ),
                           ),
                           Container(
@@ -535,12 +555,22 @@ class _KhuyenTaiState extends State<KhuyenTai> {
                           Container(
                             color: Color.fromARGB(255, 201, 200, 197),
                             child: Center(
-                              child: Image.asset(
-                                "${snapshot.data!.docs[index]['img'].toString()}",
-                                fit: BoxFit.cover,
-                                height: h * 0.26,
-                                width: double.infinity - 2,
-                              ),
+                              child: snapshot.data!.docs[index]['img']
+                                          .toString()
+                                          .length <
+                                      50
+                                  ? Image.asset(
+                                      "${snapshot.data!.docs[index]['img'].toString()}",
+                                      fit: BoxFit.cover,
+                                      height: h * 0.26,
+                                      width: double.infinity - 2,
+                                    )
+                                  : Image.network(
+                                      "${snapshot.data!.docs[index]['img'].toString()}",
+                                      fit: BoxFit.cover,
+                                      height: h * 0.26,
+                                      width: double.infinity - 2,
+                                    ),
                             ),
                           ),
                           Container(
@@ -614,7 +644,7 @@ class _LacTayState extends State<LacTay> {
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection("SanPham")
-            .where('loaiSP', isEqualTo: "Lắc tay")
+            .where('loaiSP', isEqualTo: "Lắc tay")
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
@@ -651,12 +681,22 @@ class _LacTayState extends State<LacTay> {
                           Container(
                             color: Color.fromARGB(255, 201, 200, 197),
                             child: Center(
-                              child: Image.asset(
-                                "${snapshot.data!.docs[index]['img'].toString()}",
-                                fit: BoxFit.cover,
-                                height: h * 0.26,
-                                width: double.infinity - 2,
-                              ),
+                              child: snapshot.data!.docs[index]['img']
+                                          .toString()
+                                          .length <
+                                      50
+                                  ? Image.asset(
+                                      "${snapshot.data!.docs[index]['img'].toString()}",
+                                      fit: BoxFit.cover,
+                                      height: h * 0.26,
+                                      width: double.infinity - 2,
+                                    )
+                                  : Image.network(
+                                      "${snapshot.data!.docs[index]['img'].toString()}",
+                                      fit: BoxFit.cover,
+                                      height: h * 0.26,
+                                      width: double.infinity - 2,
+                                    ),
                             ),
                           ),
                           Container(
@@ -730,7 +770,7 @@ class _LacChanState extends State<LacChan> {
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection("SanPham")
-            .where('loaiSP', isEqualTo: "Lắc chân")
+            .where('loaiSP', isEqualTo: "Lắc chân")
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
@@ -767,12 +807,22 @@ class _LacChanState extends State<LacChan> {
                           Container(
                             color: Color.fromARGB(255, 201, 200, 197),
                             child: Center(
-                              child: Image.asset(
-                                "${snapshot.data!.docs[index]['img'].toString()}",
-                                fit: BoxFit.cover,
-                                height: h * 0.26,
-                                width: double.infinity - 2,
-                              ),
+                              child: snapshot.data!.docs[index]['img']
+                                          .toString()
+                                          .length <
+                                      50
+                                  ? Image.asset(
+                                      "${snapshot.data!.docs[index]['img'].toString()}",
+                                      fit: BoxFit.cover,
+                                      height: h * 0.26,
+                                      width: double.infinity - 2,
+                                    )
+                                  : Image.network(
+                                      "${snapshot.data!.docs[index]['img'].toString()}",
+                                      fit: BoxFit.cover,
+                                      height: h * 0.26,
+                                      width: double.infinity - 2,
+                                    ),
                             ),
                           ),
                           Container(
@@ -840,7 +890,7 @@ class _ChamCaiTocState extends State<ChamCaiToc> {
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection("SanPham")
-            .where('loaiSP', isEqualTo: "Châm cài tóc")
+            .where('loaiSP', isEqualTo: "Châm cài tóc")
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
@@ -877,12 +927,22 @@ class _ChamCaiTocState extends State<ChamCaiToc> {
                           Container(
                             color: Color.fromARGB(255, 201, 200, 197),
                             child: Center(
-                              child: Image.asset(
-                                "${snapshot.data!.docs[index]['img'].toString()}",
-                                fit: BoxFit.cover,
-                                height: h * 0.26,
-                                width: double.infinity - 2,
-                              ),
+                              child: snapshot.data!.docs[index]['img']
+                                          .toString()
+                                          .length <
+                                      50
+                                  ? Image.asset(
+                                      "${snapshot.data!.docs[index]['img'].toString()}",
+                                      fit: BoxFit.cover,
+                                      height: h * 0.26,
+                                      width: double.infinity - 2,
+                                    )
+                                  : Image.network(
+                                      "${snapshot.data!.docs[index]['img'].toString()}",
+                                      fit: BoxFit.cover,
+                                      height: h * 0.26,
+                                      width: double.infinity - 2,
+                                    ),
                             ),
                           ),
                           Container(

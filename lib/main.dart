@@ -84,8 +84,12 @@ class MyApp extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                "Hữu Nam Jewelry",
-                style: TextStyle(fontSize: 18),
+                "Hữu Nam SCJ",
+                style: TextStyle(
+                    fontSize: 25,
+                    color: Color.fromARGB(255, 92, 58, 58),
+                    fontWeight: FontWeight.bold,
+                 ),
               )
             ],
           ),

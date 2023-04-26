@@ -2,7 +2,7 @@
     package="com.example.trangsuchuunam">
  <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="Hữu Nam Jewelry"
+        android:label="Hữu Nam SCJ"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -33,5 +33,3 @@
             android:value="2" />
     </application>
 </manifest>
-            <!-- android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCd-Xmzjfu-AblcqAZxo7rBDLJGqTPVDSI"  -->

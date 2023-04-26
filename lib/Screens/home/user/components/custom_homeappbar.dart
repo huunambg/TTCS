@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:trangsuchuunam/Screens/home/user/homeuser.dart';
 
 AppBar CustomHomeAppBar(BuildContext context) {
@@ -13,30 +14,30 @@ AppBar CustomHomeAppBar(BuildContext context) {
         Row(
           children: [
             Container(
+              alignment: Alignment.center,
               height: 50,
               width: MediaQuery.of(context).size.width * 0.66,
               // form Seach store
               decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(8)),
-              child: TextField(
-                textInputAction: TextInputAction.next,
-                decoration: InputDecoration(
-                    label: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          "assets/images/kimcuong.png",
-                          height: 25,
-                          width: 25,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text("Hữu Nam Jewelry")
-                      ],
-                    ),
-                    border: InputBorder.none),
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  borderRadius: BorderRadius.circular(8)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                      alignment: Alignment.topCenter,
+                      child: Lottie.asset('assets/lottie/dimond.json',
+                          height: 40)),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    "Hữu Nam SCJ",
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 70, 67, 67),
+                        fontWeight: FontWeight.bold),
+                  )
+                ],
               ),
             ),
             SizedBox(

@@ -31,12 +31,14 @@ class _EditProfileState extends State<EditProfile> {
   final diachicontroller = TextEditingController();
   final imgcontroller = TextEditingController();
   final sdtcontroller = TextEditingController();
+  final dotuoicontroler = TextEditingController();
   String? img;
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   final user = FirebaseAuth.instance.currentUser;
   String? name;
   String? vaitro;
+  int? tuoi;
   void getname() {
     DocumentReference docRef =
         firestore.collection('Users').doc('${user?.uid}');
@@ -50,6 +52,7 @@ class _EditProfileState extends State<EditProfile> {
               sdtcontroller.text = "0${doc.get('sdt').toString()}";
               imgcontroller.text = doc.get('img');
               img = doc.get('img');
+              dotuoicontroler.text = doc.get('tuoi').toString();
             })
         });
     ;
@@ -122,6 +125,10 @@ class _EditProfileState extends State<EditProfile> {
               titile: "Ảnh",
               controller: imgcontroller,
             ),
+            ItemEdit_OK(
+              titile: "Tuổi",
+              controller: dotuoicontroler,
+            ),
 
             Container(
               margin: EdgeInsets.only(top: h * 0.04),
@@ -157,13 +164,15 @@ class _EditProfileState extends State<EditProfile> {
                         'tenNguoiDung': tencontroller.text,
                         'img': imgcontroller.text,
                         'sdt': int.parse(sdtcontroller.text),
-                        'diaChi': diachicontroller.text
+                        'diaChi': diachicontroller.text,
+                        'tuoi': int.parse(dotuoicontroler.text)
                       });
                       tencontroller.text = "";
                       imgcontroller.text = "";
                       sdtcontroller.text = "";
                       diachicontroller.text = "";
                       tencontroller.text = "";
+                      dotuoicontroler.text = "";
                       CherryToast.success(
                               title: Text("Cập nhật thông tin thành công"))
                           .show(context);

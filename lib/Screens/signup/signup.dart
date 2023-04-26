@@ -43,7 +43,7 @@ class _SingupState extends State<Singup> {
                 height: h * 0.15,
               ),
               Text(
-                "Hữu Nam Jewelry",
+                "Hữu Nam SCJ",
                 style: TextStyle(fontSize: 25, color: Colors.white),
               ),
               SizedBox(

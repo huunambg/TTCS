@@ -86,7 +86,7 @@ class _AcountState extends State<Acount> {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => EditProfile()));
                   },
-                  icon: Icon(Icons.settings))
+                  icon: Icon(Icons.manage_accounts_outlined))
         ],
       ),
       body: ListView(
@@ -186,7 +186,7 @@ class _AcountState extends State<Acount> {
               },
               titile: "Phản hồi"),
           ItemAccount_OK(
-              icon: Icons.arrow_back_sharp,
+              icon: Ionicons.arrow_back_circle_outline,
               onpressed: () async {
                 await FirebaseAuth.instance.signOut();
                 Navigator.pushReplacement(

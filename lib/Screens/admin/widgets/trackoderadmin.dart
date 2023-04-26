@@ -209,6 +209,24 @@ class _TrackOrderAdminState extends State<TrackOrderAdmin> {
                 ),
                 Row(
                   children: [
+                    Text("Ngày nhận: ", style: TextStyle(fontSize: 17)),
+                    widget.f['ngayNhan'].toString() == "chưa nhận"
+                        ? Text(
+                            "${widget.f['ngayNhan']}",
+                            style: TextStyle(
+                                fontSize: 17,
+                                color: Color.fromARGB(255, 54, 152, 244)),
+                          )
+                        : Text(
+                            "${DateFormat('dd-MM-yyyy').format(DateTime.parse(widget.f['ngayNhan']))}",
+                            style: TextStyle(
+                                fontSize: 17,
+                                color: Color.fromARGB(255, 54, 152, 244)),
+                          ),
+                  ],
+                ),
+                Row(
+                  children: [
                     Text("Trạng thái: ", style: TextStyle(fontSize: 17)),
                     Text(
                       "${widget.f['chiTietOrder'].toString()}",

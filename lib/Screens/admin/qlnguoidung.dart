@@ -23,6 +23,7 @@ class _QLNguoiDungState extends State<QLNguoiDung> {
   final sdtcontroller = TextEditingController();
   final diachicontroller = TextEditingController();
   final imgcontroller = TextEditingController();
+  final tuoicontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -76,6 +77,9 @@ class _QLNguoiDungState extends State<QLNguoiDung> {
                                           snapshot.data!.docs[index]['diaChi'];
                                       imgcontroller.text =
                                           snapshot.data!.docs[index]['img'];
+                                      tuoicontroller.text = snapshot
+                                          .data!.docs[index]['tuoi']
+                                          .toString();
                                       Navigator.pop(context);
                                       NDialog(
                                         dialogStyle:
@@ -113,6 +117,11 @@ class _QLNguoiDungState extends State<QLNguoiDung> {
                                                 decoration: InputDecoration(
                                                     labelText: "Ảnh"),
                                               ),
+                                              TextField(
+                                                controller: tuoicontroller,
+                                                decoration: InputDecoration(
+                                                    labelText: "Tuổi"),
+                                              ),
                                             ],
                                           ),
                                         ),
@@ -129,6 +138,7 @@ class _QLNguoiDungState extends State<QLNguoiDung> {
                                                         "" ||
                                                     imgcontroller.text == "" ||
                                                     sdtcontroller.text == "" ||
+                                                    tuoicontroller.text == "" ||
                                                     int.tryParse(sdtcontroller
                                                             .text) ==
                                                         null) {
@@ -152,7 +162,9 @@ class _QLNguoiDungState extends State<QLNguoiDung> {
                                                         emailcontroller.text,
                                                     'img': imgcontroller.text,
                                                     'sdt': int.parse(
-                                                        sdtcontroller.text)
+                                                        sdtcontroller.text),
+                                                    'tuoi': int.parse(
+                                                        tuoicontroller.text)
                                                   });
                                                   CherryToast.success(
                                                           title: Text(

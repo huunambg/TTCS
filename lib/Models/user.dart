@@ -7,6 +7,7 @@ class Users {
   String? vaitro;
   String? tenNguoiDung;
   String? img;
+  int? tuoi;
   Users(
       {this.id,
       this.email,
@@ -15,7 +16,8 @@ class Users {
       this.img = "chưa cập nhật",
       this.tenNguoiDung = "User",
       this.diaChi = "chưa cập nhật",
-      this.sdt = 0});
+      this.sdt = 0,
+      this.tuoi});
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -23,6 +25,7 @@ class Users {
         'matkhau': matkhau,
         'vaitro': vaitro,
         'diaChi': diaChi,
+        'tuoi': tuoi,
         'sdt': sdt,
         'img': img,
         'tenNguoiDung': tenNguoiDung
